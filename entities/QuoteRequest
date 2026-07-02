@@ -1,0 +1,56 @@
+{
+  "name": "QuoteRequest",
+  "type": "object",
+  "properties": {
+    "fullName": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "monthlyBill": {
+      "type": "string"
+    },
+    "propertyType": {
+      "type": "string",
+      "enum": [
+        "Home",
+        "Shop",
+        "Office",
+        "Factory",
+        "Farm",
+        "Other"
+      ]
+    },
+    "systemType": {
+      "type": "string",
+      "enum": [
+        "On-Grid",
+        "Hybrid",
+        "Off-Grid",
+        "Not Sure"
+      ]
+    },
+    "message": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "converted",
+        "closed"
+      ],
+      "default": "new"
+    }
+  },
+  "required": [
+    "fullName",
+    "phone",
+    "city"
+  ]
+}

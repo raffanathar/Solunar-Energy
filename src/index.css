@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 7%;
+    --primary: 175 88% 26%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 38 92% 44%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 175 88% 26%;
+    --radius: 0.75rem;
+    --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+  }
+
+  .dark {
+    --background: 222 47% 5%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 175 88% 35%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 222 47% 7%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 175 88% 35%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-jakarta;
+  }
+}
+
+@layer utilities {
+  .font-jakarta { font-family: var(--font-jakarta); }
+  .font-inter { font-family: var(--font-inter); }
+  
+  .text-brand { color: #0A7A70; }
+  .text-amber { color: #D97706; }
+  .bg-brand { background-color: #0A7A70; }
+  .bg-amber { background-color: #D97706; }
+  .border-brand { border-color: #0A7A70; }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .card-hover {
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(10, 122, 112, 0.12);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .section-rule {
+    border-top: 1px solid #E2E8F0;
+  }
+
+  .light-leak-amber {
+    background: radial-gradient(ellipse 60% 40% at 100% 0%, rgba(217, 119, 6, 0.08) 0%, transparent 70%);
+  }
+  .light-leak-teal {
+    background: radial-gradient(ellipse 60% 40% at 0% 100%, rgba(10, 122, 112, 0.07) 0%, transparent 70%);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float, .card-hover { animation: none; transition: none; }
+  }
+}

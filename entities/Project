@@ -1,0 +1,16 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "title": { "type": "string" },
+    "location": { "type": "string" },
+    "systemSize": { "type": "string" },
+    "systemType": { "type": "string" },
+    "description": { "type": "string" },
+    "images": { "type": "array", "items": { "type": "string" } },
+    "completionDate": { "type": "string", "format": "date" },
+    "isActive": { "type": "boolean", "default": true },
+    "sortOrder": { "type": "number", "default": 0 }
+  },
+  "required": ["title"]
+}

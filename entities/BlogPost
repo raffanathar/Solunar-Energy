@@ -1,0 +1,33 @@
+{
+  "name": "BlogPost",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "coverImage": {
+      "type": "string"
+    },
+    "isPublished": {
+      "type": "boolean",
+      "default": true
+    },
+    "publishedAt": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "title",
+    "shortDescription"
+  ]
+}

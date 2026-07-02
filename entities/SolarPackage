@@ -1,0 +1,42 @@
+{
+  "name": "SolarPackage",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "systemSize": {
+      "type": "string"
+    },
+    "bestFor": {
+      "type": "string"
+    },
+    "monthlyUnits": {
+      "type": "string"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "coveragePercent": {
+      "type": "number",
+      "description": "% of typical home load covered",
+      "default": 80
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "systemSize",
+    "bestFor"
+  ]
+}

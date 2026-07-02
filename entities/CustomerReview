@@ -1,0 +1,42 @@
+{
+  "name": "CustomerReview",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "comment": {
+      "type": "string"
+    },
+    "installationType": {
+      "type": "string"
+    },
+    "savingsPercent": {
+      "type": "number",
+      "description": "Estimated bill savings %"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    }
+  },
+  "required": [
+    "name",
+    "city",
+    "rating",
+    "comment"
+  ]
+}
