@@ -39,6 +39,7 @@ app.use('/uploads', express.static(uploadsDir))
 app.use('/api/auth', authRoutes)
 app.use('/api/entities', entityRoutes)
 
-app.listen(3001, () => {
-  console.log('Backend server running on http://localhost:3001')
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+  console.log(`Backend server running on http://localhost:${PORT}`)
 })
