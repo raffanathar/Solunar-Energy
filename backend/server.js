@@ -29,6 +29,10 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() })
+})
+
 app.post('/api/upload', upload.single('file'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' })
   res.json({ file_url: `/uploads/${req.file.filename}` })
