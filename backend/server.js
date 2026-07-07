@@ -1,29 +1,12 @@
 import express from 'express'
 import multer from 'multer'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import fs from 'fs'
 import cors from 'cors'
 import 'dotenv/config'
+import { supabase } from './lib/supabase.js'
 import authRoutes from './routes/auth.js'
 import entityRoutes from './routes/entities.js'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const uploadsDir = path.join(__dirname, '..', 'uploads')
-
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true })
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname)
-    cb(null, `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`)
-  },
-})
-
-const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } })
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } })
 
 const app = express()
 app.use(cors())
@@ -33,12 +16,24 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
-app.post('/api/upload', upload.single('file'), (req, res) => {
-  if (!req.file) return res.status(400).json({ error: 'No file uploaded' })
-  res.json({ file_url: `/uploads/${req.file.filename}` })
+app.post('/api/upload', upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: 'No file uploaded' })
+    const ext = req.file.originalname.split('.').pop() || 'bin'
+    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+    const { data, error } = await supabase.storage
+      .from('uploads')
+      .upload(fileName, req.file.buffer, {
+        contentType: req.file.mimetype,
+        upsert: false,
+      })
+    if (error) return res.status(500).json({ error: error.message })
+    const { data: { publicUrl } } = supabase.storage.from('uploads').getPublicUrl(fileName)
+    res.json({ file_url: publicUrl })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
 })
-
-app.use('/uploads', express.static(uploadsDir))
 
 app.use('/api/auth', authRoutes)
 app.use('/api/entities', entityRoutes)
