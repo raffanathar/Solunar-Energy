@@ -173,7 +173,7 @@ const db = {
       UploadFile: async (file) => {
         const formData = new FormData()
         formData.append('file', file)
-        const res = await fetch('/api/upload', { method: 'POST', body: formData })
+        const res = await fetch(`${API}/upload`, { method: 'POST', body: formData })
         return res.json()
       },
     },
