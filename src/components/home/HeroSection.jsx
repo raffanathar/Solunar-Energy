@@ -67,7 +67,7 @@ export default function HeroSection() {
           </h1>
 
           <p className="font-inter text-lg text-[#475569] leading-relaxed mb-10 max-w-xl">
-            Solunar Energy provides reliable and affordable solar panel installation services for homes, businesses, and industries across Pakistan. Save up to 90% on your electricity bills.
+            Power your home, business, or industry with total peace of mind. Save up to 90% on electricity bills with custom solar installations—backed by 1 to 3 years of warranty covering severe weather, hail, fire, and earthquakes.
           </p>
 
           {/* Trust badges */}
