@@ -3,8 +3,8 @@ import { ArrowRight, MessageCircle, Zap, Shield, Award } from 'lucide-react';
 const stats = [
   { value: '500+', label: 'Projects Installed' },
   { value: '15+', label: 'Years Experience' },
-  { value: '99%', label: 'Customer Satisfaction' },
-  { value: '30%', label: 'Avg Bill Savings' },
+  { value: '100%', label: 'Customer Satisfaction' },
+  { value: '90%', label: 'Avg Bill Savings' },
 ];
 
 export default function HeroSection() {
@@ -67,7 +67,7 @@ export default function HeroSection() {
           </h1>
 
           <p className="font-inter text-lg text-[#475569] leading-relaxed mb-10 max-w-xl">
-            Power your home, business, or industry with total peace of mind. Save up to 90% on electricity bills with custom solar installations—backed by 1 to 3 years of warranty covering severe weather, hail, fire, and earthquakes.
+            100% Risk-Free Solar Power. Save up to 90% on your electricity bills with zero worry about the unexpected. Every Solunar Energy installation comes backed by our comprehensive 1 to 3 Year Total Protection Warranty—covering your system against severe weather, hail, fire, and earthquakes. Power your home, business, or industry with absolute peace of mind.
           </p>
 
           {/* Trust badges */}
