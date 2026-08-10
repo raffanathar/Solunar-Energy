@@ -56,7 +56,7 @@
       radial-gradient(900px 520px at -10% 115%, rgba(212, 175, 55, 0.10), transparent 55%),
       linear-gradient(135deg, #0D1E33 0%, #0B192C 55%, #10213A 100%);
     color: var(--white);
-    padding: 9mm 14mm 10mm 14mm;
+    padding: 9mm 14mm 8mm 14mm;
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
@@ -173,6 +173,24 @@
   }
   h1 .accent { color: var(--gold); position: relative; }
   h1 .underline { position: absolute; left: 0; bottom: -2mm; width: 100%; }
+
+  .subheading {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.5mm;
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--white);
+    background: rgba(230, 157, 0, 0.16);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    border-radius: 99px;
+    padding: 2mm 6mm;
+    margin-top: 2.5mm;
+    margin-bottom: 3.5mm;
+  }
+  .subheading .dot { color: var(--gold); font-size: 8pt; }
 
   .pitch {
     font-size: 8.5pt;
@@ -463,14 +481,18 @@
         </div>
 
         <h1>
-          Pakistan's Future is<br />
+          Pakistan's First<br />
           <span class="accent">
-            Written in Light
+            Disaster-Proof Solar
             <svg class="underline" viewBox="0 0 400 12" fill="none">
               <path d="M0 8 Q100 2 200 8 Q300 14 400 8" stroke="#E69D00" stroke-width="3" fill="none" stroke-linecap="round"/>
             </svg>
           </span>
         </h1>
+
+        <p class="subheading">
+          <span class="dot">●</span> Covered Against Fire, Hail, Earthquakes &amp; Storms
+        </p>
 
         <p class="pitch">
           <strong>100% Risk-Free Solar Power.</strong> Save up to 90% on your electricity bills

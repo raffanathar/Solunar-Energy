@@ -57,14 +57,21 @@ export default function HeroSection() {
 
           <h1 className="font-jakarta font-extrabold text-[#0F172A] leading-[1.05] tracking-tight mb-6"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}>
-            Pakistan's Future is<br />
+            Pakistan's First<br />
             <span className="text-[#0A7A70] relative">
-              Written in Light
+              Disaster-Proof Solar
               <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 400 12" fill="none">
                 <path d="M0 8 Q100 2 200 8 Q300 14 400 8" stroke="#D97706" strokeWidth="3" fill="none" strokeLinecap="round"/>
               </svg>
             </span>
           </h1>
+
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D97706]/10 border border-[#D97706]/30 mb-6">
+            <Shield className="w-4 h-4 text-[#D97706]" />
+            <span className="font-inter text-sm font-semibold text-[#B45309] tracking-wide uppercase">
+              Covered Against Fire, Hail, Earthquakes &amp; Storms
+            </span>
+          </div>
 
           <p className="font-inter text-lg text-[#475569] leading-relaxed mb-10 max-w-xl">
             100% Risk-Free Solar Power. Save up to 90% on your electricity bills with zero worry about the unexpected. Every Solunar Energy installation comes backed by our comprehensive 1 to 3 Year Total Protection Warranty—covering your system against severe weather, hail, fire, and earthquakes. Power your home, business, or industry with absolute peace of mind.
