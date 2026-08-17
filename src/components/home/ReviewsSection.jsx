@@ -3,6 +3,10 @@ const db = globalThis.__B44_DB__ || { auth:{ isAuthenticated: async()=>false, me
 import { useState, useEffect } from 'react';
 import { Star, Quote, Loader2, Send, CheckCircle } from 'lucide-react';
 
+// TODO: CONFIRM — the defaultReviews below are placeholder/sample reviews shown when
+// no approved CustomerReview records exist in the CMS. They look like real testimonials
+// with specific names, cities, and savings figures. Do NOT publish until replaced with
+// real, verifiable customer reviews (or removed so only real reviews display).
 const defaultReviews = [
   { id: 'r1', name: 'Ahmed Khan', city: 'Lahore', rating: 5, comment: 'Solunar Energy installed a 5kW system at my home. The team was professional and the installation was clean. Our electricity bill dropped from Rs. 18,000 to just Rs. 2,500 monthly!', installationType: 'Home Solar 5kW', savingsPercent: 85 },
   { id: 'r2', name: 'Bilal Raza', city: 'Islamabad', rating: 5, comment: 'Very satisfied with their service. They explained the whole process clearly and helped us reduce our electricity bill. The net metering application was handled entirely by Solunar Energy — seamless experience.', installationType: 'Hybrid Solar 10kW', savingsPercent: 80 },
@@ -37,7 +41,7 @@ function ReviewForm({ onSubmitted }) {
   if (done) {
     return (
       <div className="text-center py-8">
-        <CheckCircle className="w-12 h-12 text-[#0A7A70] mx-auto mb-3" />
+        <CheckCircle className="w-12 h-12 text-[#1E3A5F] mx-auto mb-3" />
         <p className="font-jakarta font-bold text-[#0F172A] text-lg mb-1">Review Submitted!</p>
         <p className="font-inter text-sm text-[#475569]">Thank you! Your review will appear after approval.</p>
       </div>
@@ -50,20 +54,20 @@ function ReviewForm({ onSubmitted }) {
         <div>
           <label className="block font-inter text-xs font-semibold text-[#475569] uppercase tracking-wider mb-1.5">Your Name *</label>
           <input required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))}
-            className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white font-inter text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#0A7A70]/30 focus:border-[#0A7A70]"
+            className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white font-inter text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30 focus:border-[#1E3A5F]"
             placeholder="Ahmad Khan" />
         </div>
         <div>
           <label className="block font-inter text-xs font-semibold text-[#475569] uppercase tracking-wider mb-1.5">City *</label>
           <input required value={form.city} onChange={e => setForm(f => ({...f, city: e.target.value}))}
-            className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white font-inter text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#0A7A70]/30 focus:border-[#0A7A70]"
+            className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white font-inter text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30 focus:border-[#1E3A5F]"
             placeholder="Lahore" />
         </div>
       </div>
       <div>
         <label className="block font-inter text-xs font-semibold text-[#475569] uppercase tracking-wider mb-1.5">Installation Type</label>
         <input value={form.installationType} onChange={e => setForm(f => ({...f, installationType: e.target.value}))}
-          className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white font-inter text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#0A7A70]/30 focus:border-[#0A7A70]"
+          className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white font-inter text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30 focus:border-[#1E3A5F]"
           placeholder="e.g. Home Solar 5kW" />
       </div>
       <div>
@@ -81,11 +85,11 @@ function ReviewForm({ onSubmitted }) {
         <label className="block font-inter text-xs font-semibold text-[#475569] uppercase tracking-wider mb-1.5">Your Review *</label>
         <textarea required value={form.comment} onChange={e => setForm(f => ({...f, comment: e.target.value}))}
           rows={4}
-          className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white font-inter text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#0A7A70]/30 focus:border-[#0A7A70] resize-none"
+          className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white font-inter text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30 focus:border-[#1E3A5F] resize-none"
           placeholder="Share your experience with Solunar Energy..." />
       </div>
       <button type="submit" disabled={submitting}
-        className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#0A7A70] text-white font-jakarta font-bold text-sm hover:bg-[#0A7A70]/90 transition-all duration-300 disabled:opacity-60">
+        className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#1E3A5F] text-white font-jakarta font-bold text-sm hover:bg-[#1E3A5F]/90 transition-all duration-300 disabled:opacity-60">
         {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
         {submitting ? 'Submitting...' : 'Submit Review'}
       </button>
@@ -109,7 +113,7 @@ export default function ReviewsSection() {
 
   return (
     <section id="reviews" className="py-24 lg:py-32 bg-[#F8FAFC] section-rule relative overflow-hidden">
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#0A7A70]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#1E3A5F]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -118,20 +122,19 @@ export default function ReviewsSection() {
             <span className="font-inter text-xs font-semibold text-[#D97706] tracking-wider uppercase">Customer Reviews</span>
           </div>
           <h2 className="font-jakarta font-extrabold text-[#0F172A] text-4xl lg:text-5xl tracking-tight mb-5">
-            Trusted by <span className="text-[#0A7A70]">Pakistanis</span> Nationwide
+            Trusted by <span className="text-[#1E3A5F]">Pakistanis</span> Nationwide
           </h2>
           <p className="font-inter text-[#475569] text-base leading-relaxed">
             Real stories from real customers. See why hundreds of families and businesses across Pakistan choose Solunar Energy.
-          </p>
-        </div>
+          </p>        </div>
 
         {loading ? (
-          <div className="flex justify-center py-16"><Loader2 className="w-8 h-8 text-[#0A7A70] animate-spin" /></div>
+          <div className="flex justify-center py-16"><Loader2 className="w-8 h-8 text-[#1E3A5F] animate-spin" /></div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
             {reviews.map(r => (
               <div key={r.id} className="bg-white rounded-2xl border border-[#E2E8F0] p-6 card-hover flex flex-col">
-                <Quote className="w-8 h-8 text-[#0A7A70]/20 mb-4" />
+                <Quote className="w-8 h-8 text-[#1E3A5F]/20 mb-4" />
                 {r.savingsPercent && (
                   <div className="inline-block px-3 py-1 bg-[#D97706]/10 rounded-full mb-4 w-fit">
                     <span className="font-jakarta font-bold text-sm text-[#D97706]">Saved {r.savingsPercent}% on bills</span>
@@ -156,7 +159,7 @@ export default function ReviewsSection() {
             <div className="text-center">
               <button
                 onClick={() => setShowForm(true)}
-                className="px-8 py-3 rounded-full border-2 border-[#0A7A70] text-[#0A7A70] font-jakarta font-bold text-sm hover:bg-[#0A7A70]/5 transition-all duration-300"
+                className="px-8 py-3 rounded-full border-2 border-[#1E3A5F] text-[#1E3A5F] font-jakarta font-bold text-sm hover:bg-[#1E3A5F]/5 transition-all duration-300"
               >
                 Share Your Experience
               </button>

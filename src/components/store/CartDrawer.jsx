@@ -2,7 +2,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '
 import { useCart } from '@/lib/cart-context';
 import { Trash2, Minus, Plus, ShoppingBag, MessageCircle } from 'lucide-react';
 
-const WHATSAPP_NUMBER = '923214407701';
+const WHATSAPP_NUMBER = '923250200632';
 
 export default function CartDrawer() {
   const { items, isOpen, setIsOpen, removeItem, updateQty, total, count, clear } = useCart();
@@ -21,7 +21,7 @@ export default function CartDrawer() {
       <SheetContent side="right" className="w-full sm:max-w-md flex flex-col p-0 gap-0">
         <SheetHeader className="px-5 pr-12 py-4 border-b border-[#E2E8F0] flex flex-row items-center justify-between space-y-0 sm:flex-row sm:space-y-0">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-[#0A7A70]" />
+            <ShoppingBag className="w-5 h-5 text-[#1E3A5F]" />
             <SheetTitle className="font-jakarta font-bold text-[#0F172A] text-base">
               Your Cart ({count})
             </SheetTitle>
@@ -48,7 +48,7 @@ export default function CartDrawer() {
             </p>
             <button
               onClick={() => setIsOpen(false)}
-              className="mt-2 px-5 py-2.5 rounded-full bg-[#0A7A70] text-white font-jakarta font-semibold text-sm hover:bg-[#0A7A70]/90 transition-colors"
+              className="mt-2 px-5 py-2.5 rounded-full bg-[#1E3A5F] text-white font-jakarta font-semibold text-sm hover:bg-[#1E3A5F]/90 transition-colors"
             >
               Browse Products
             </button>
@@ -65,8 +65,8 @@ export default function CartDrawer() {
                     {item.image ? (
                       <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-[#0A7A70]/10 flex items-center justify-center">
-                        <ShoppingBag className="w-5 h-5 text-[#0A7A70]/40" />
+                      <div className="w-full h-full bg-[#1E3A5F]/10 flex items-center justify-center">
+                        <ShoppingBag className="w-5 h-5 text-[#1E3A5F]/40" />
                       </div>
                     )}
                   </div>
@@ -74,7 +74,7 @@ export default function CartDrawer() {
                     <div className="font-jakarta font-semibold text-[#0F172A] text-sm leading-snug line-clamp-2">
                       {item.name}
                     </div>
-                    <div className="font-jakarta font-bold text-[#0A7A70] text-sm mt-0.5">
+                    <div className="font-jakarta font-bold text-[#1E3A5F] text-sm mt-0.5">
                       Rs {item.price.toLocaleString()}
                     </div>
                     <div className="flex items-center justify-between mt-2">

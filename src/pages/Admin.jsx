@@ -2,7 +2,7 @@ const db = globalThis.__B44_DB__ || { auth:{ isAuthenticated: async()=>false, me
 
 import { useState, useEffect } from 'react';
 
-import { Sun, Zap, Package, Star, FileText, MessageSquare, LogOut, Plus, Pencil, Trash2, Check, X, Loader2, Eye, ShoppingBag, Briefcase, Lock, Mail } from 'lucide-react';
+import { Zap, Package, Star, FileText, MessageSquare, LogOut, Plus, Pencil, Trash2, Check, X, Loader2, Eye, ShoppingBag, Briefcase, Lock, Mail } from 'lucide-react';
 
 const tabs = [
   { id: 'quotes', label: 'Quote Requests', icon: MessageSquare },
@@ -26,7 +26,7 @@ function QuotesTab() {
     await db.entities.QuoteRequest.update(id, { status });
     setQuotes(q => q.map(x => x.id === id ? { ...x, status } : x));
   };
-  if (loading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 text-[#0A7A70] animate-spin" /></div>;
+  if (loading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 text-[#1E3A5F] animate-spin" /></div>;
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -79,7 +79,7 @@ function ReviewsTab() {
     await db.entities.CustomerReview.delete(id);
     setReviews(r => r.filter(x => x.id !== id));
   };
-  if (loading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 text-[#0A7A70] animate-spin" /></div>;
+  if (loading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 text-[#1E3A5F] animate-spin" /></div>;
   return (
     <div>
       <h2 className="font-jakarta font-bold text-[#0F172A] text-xl mb-6">Customer Reviews ({reviews.length})</h2>
@@ -170,19 +170,19 @@ function SimpleEntityTab({ entityName, fields, displayField = 'title' }) {
   };
   const startNew = () => { setEditing('new'); setForm({}); };
 
-  if (loading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 text-[#0A7A70] animate-spin" /></div>;
+  if (loading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 text-[#1E3A5F] animate-spin" /></div>;
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="font-jakarta font-bold text-[#0F172A] text-xl">{entityName} ({items.length})</h2>
-        <button onClick={startNew} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0A7A70] text-white font-jakarta font-semibold text-sm hover:bg-[#0A7A70]/90 transition-colors">
+        <button onClick={startNew} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1E3A5F] text-white font-jakarta font-semibold text-sm hover:bg-[#1E3A5F]/90 transition-colors">
           <Plus className="w-4 h-4" /> Add New
         </button>
       </div>
 
       {editing && (
-        <div className="bg-white rounded-xl border-2 border-[#0A7A70]/30 p-6 mb-6 shadow-lg">
+        <div className="bg-white rounded-xl border-2 border-[#1E3A5F]/30 p-6 mb-6 shadow-lg">
           <h3 className="font-jakarta font-bold text-[#0F172A] mb-4">{editing === 'new' ? 'Add New' : 'Edit'} {entityName}</h3>
           <div className="grid sm:grid-cols-2 gap-4">
             {fields.map(f => (
@@ -190,17 +190,17 @@ function SimpleEntityTab({ entityName, fields, displayField = 'title' }) {
                 <label className="block font-inter text-xs font-semibold text-[#475569] uppercase tracking-wider mb-1.5">{f.label}</label>
                 {f.type === 'textarea' ? (
                   <textarea value={form[f.key] || ''} onChange={e => setForm(x => ({...x, [f.key]: e.target.value}))}
-                    rows={3} className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#0A7A70]/30 focus:border-[#0A7A70] resize-none" />
+                    rows={3} className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30 focus:border-[#1E3A5F] resize-none" />
                 ) : f.type === 'select' ? (
                   <select value={form[f.key] || ''} onChange={e => setForm(x => ({...x, [f.key]: e.target.value}))}
-                    className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#0A7A70]/30">
+                    className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30">
                     {f.options.map(o => <option key={o} value={o}>{o}</option>)}
                   </select>
                 ) : f.type === 'file' ? (
                   <div className="space-y-2">
                     <input type="file" accept="image/*" onChange={e => handleFile(f.key, e.target.files[0])}
-                      className="w-full text-sm font-inter file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-[#0A7A70] file:text-white hover:file:bg-[#0A7A70]/90" />
-                    {uploading && <div className="text-xs text-[#0A7A70] font-inter">Uploading...</div>}
+                      className="w-full text-sm font-inter file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-[#1E3A5F] file:text-white hover:file:bg-[#1E3A5F]/90" />
+                    {uploading && <div className="text-xs text-[#1E3A5F] font-inter">Uploading...</div>}
                     {form[f.key] && (
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-[#94A3B8] font-inter truncate">{form[f.key]}</span>
@@ -210,13 +210,13 @@ function SimpleEntityTab({ entityName, fields, displayField = 'title' }) {
                   </div>
                 ) : (
                   <input value={form[f.key] || ''} onChange={e => setForm(x => ({...x, [f.key]: e.target.value}))}
-                    className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#0A7A70]/30 focus:border-[#0A7A70]" />
+                    className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30 focus:border-[#1E3A5F]" />
                 )}
               </div>
             ))}
           </div>
           <div className="flex gap-3 mt-5">
-            <button onClick={save} className="px-5 py-2 rounded-lg bg-[#0A7A70] text-white font-jakarta font-semibold text-sm hover:bg-[#0A7A70]/90 transition-colors">Save</button>
+            <button onClick={save} className="px-5 py-2 rounded-lg bg-[#1E3A5F] text-white font-jakarta font-semibold text-sm hover:bg-[#1E3A5F]/90 transition-colors">Save</button>
             <button onClick={() => { setEditing(null); setForm({}); }} className="px-5 py-2 rounded-lg border border-[#E2E8F0] text-[#475569] font-jakarta font-semibold text-sm hover:bg-[#F8FAFC] transition-colors">Cancel</button>
           </div>
         </div>
@@ -230,7 +230,7 @@ function SimpleEntityTab({ entityName, fields, displayField = 'title' }) {
               {item.description && <div className="font-inter text-xs text-[#94A3B8] mt-0.5 truncate max-w-md">{item.description || item.shortDescription}</div>}
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
-              <button onClick={() => startEdit(item)} className="w-8 h-8 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-[#475569] hover:text-[#0A7A70] hover:border-[#0A7A70]/30 flex items-center justify-center transition-colors">
+              <button onClick={() => startEdit(item)} className="w-8 h-8 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-[#475569] hover:text-[#1E3A5F] hover:border-[#1E3A5F]/30 flex items-center justify-center transition-colors">
                 <Pencil className="w-3.5 h-3.5" />
               </button>
               <button onClick={() => del(item.id)} className="w-8 h-8 rounded-lg bg-red-50 text-red-500 hover:bg-red-100 flex items-center justify-center transition-colors">
@@ -274,9 +274,7 @@ function LoginForm({ onSuccess }) {
       <div className="w-full max-w-sm">
         <div className="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] p-8">
           <div className="flex flex-col items-center mb-8">
-            <div className="w-12 h-12 rounded-xl bg-[#0A7A70] flex items-center justify-center mb-4">
-              <Sun className="w-7 h-7 text-white" />
-            </div>
+            <img src="/logo.png" alt="Solunar Energy" className="h-10 w-auto object-contain mb-4" />
             <h1 className="font-jakarta font-extrabold text-[#0F172A] text-xl">Admin Login</h1>
             <p className="font-inter text-sm text-[#475569] mt-1">Sign in to manage your site</p>
           </div>
@@ -290,7 +288,7 @@ function LoginForm({ onSuccess }) {
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8]" />
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)}
                   placeholder="admin@solunar.com"
-                  className="w-full pl-10 pr-3 py-2.5 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#0A7A70]/30 focus:border-[#0A7A70]" required />
+                  className="w-full pl-10 pr-3 py-2.5 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30 focus:border-[#1E3A5F]" required />
               </div>
             </div>
             <div>
@@ -299,11 +297,11 @@ function LoginForm({ onSuccess }) {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8]" />
                 <input type="password" value={password} onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-3 py-2.5 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#0A7A70]/30 focus:border-[#0A7A70]" required />
+                  className="w-full pl-10 pr-3 py-2.5 rounded-lg border border-[#E2E8F0] font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30 focus:border-[#1E3A5F]" required />
               </div>
             </div>
             <button type="submit" disabled={loading}
-              className="w-full py-2.5 rounded-lg bg-[#0A7A70] text-white font-jakarta font-semibold text-sm hover:bg-[#0A7A70]/90 disabled:opacity-50 transition-colors flex items-center justify-center gap-2">
+              className="w-full py-2.5 rounded-lg bg-[#1E3A5F] text-white font-jakarta font-semibold text-sm hover:bg-[#1E3A5F]/90 disabled:opacity-50 transition-colors flex items-center justify-center gap-2">
               {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Signing in...</> : 'Sign in'}
             </button>
           </form>
@@ -333,7 +331,7 @@ export default function Admin() {
   if (authState === 'loading') {
     return (
       <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#0A7A70] animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#1E3A5F] animate-spin" />
       </div>
     );
   }
@@ -350,7 +348,7 @@ export default function Admin() {
           <h1 className="font-jakarta font-extrabold text-[#0F172A] text-xl mb-2">Access Denied</h1>
           <p className="font-inter text-sm text-[#475569] mb-6">You don't have admin privileges. Please sign in with an admin account.</p>
           <button onClick={() => { db.auth.logout(); setAuthState('login'); }}
-            className="w-full py-2.5 rounded-lg bg-[#0A7A70] text-white font-jakarta font-semibold text-sm hover:bg-[#0A7A70]/90 transition-colors">
+            className="w-full py-2.5 rounded-lg bg-[#1E3A5F] text-white font-jakarta font-semibold text-sm hover:bg-[#1E3A5F]/90 transition-colors">
             Sign in as different user
           </button>
         </div>
@@ -405,12 +403,10 @@ export default function Admin() {
       <aside className="w-16 lg:w-64 bg-[#0F172A] flex flex-col flex-shrink-0">
         <div className="p-4 lg:p-6 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-[#0A7A70] flex items-center justify-center flex-shrink-0">
-              <Sun className="w-5 h-5 text-white" />
-            </div>
+            <img src="/logo.png" alt="Solunar Energy" className="h-8 w-auto object-contain flex-shrink-0" />
             <div className="hidden lg:block">
               <div className="font-jakarta font-extrabold text-white text-base leading-none">Solunar</div>
-              <div className="font-inter text-xs text-[#0A7A70] font-medium">Admin Panel</div>
+              <div className="font-inter text-xs text-[#1E3A5F] font-medium">Energy</div>
             </div>
           </div>
         </div>
@@ -418,7 +414,7 @@ export default function Admin() {
         <nav className="flex-1 p-2 lg:p-4 space-y-1">
           {tabs.map(({ id, label, icon: Icon }) => (
             <button key={id} onClick={() => setActiveTab(id)}
-              className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${activeTab === id ? 'bg-[#0A7A70] text-white' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}`}>
+              className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${activeTab === id ? 'bg-[#1E3A5F] text-white' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}`}>
               <Icon className="w-5 h-5 flex-shrink-0" />
               <span className="hidden lg:block font-inter text-sm font-medium">{label}</span>
             </button>

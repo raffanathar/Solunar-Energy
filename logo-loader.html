@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solunar Energy — Logo Loader Variants</title>
+<style>
+  /* ============================================================
+     CONFIGURATION — Adjust these to tweak animation behaviour
+     ============================================================ */
+  :root {
+    --cycle-duration: 2;      /* seconds per full cycle */
+    --iris-blade-swing: 25;   /* degrees each blade rotates open */
+    --iris-stagger: 40;       /* ms delay between consecutive blades */
+    --spinner-duration: 2;    /* seconds per full rotation */
+
+    --gold-dark:    #8B6914;
+    --gold-mid:     #C9951C;
+    --gold-light:   #F0C84D;
+    --gold-bright:  #FFE066;
+    --silver-dark:  #5A6577;
+    --silver-mid:   #8C9BAA;
+    --silver-light: #BFC8D4;
+    --silver-bright:#E8ECF0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f0f2f5; color: #333; min-height: 100vh;
+  }
+
+  header { text-align: center; padding: 2rem 1rem 1rem; }
+  header h1 { font-size: 1.4rem; font-weight: 700; color: #1a1a2e; }
+  header p  { font-size: 0.85rem; color: #666; margin-top: 0.3rem; }
+
+  .controls {
+    display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+    padding: 0.5rem 1rem 1.5rem;
+  }
+  .controls label {
+    font-size: 0.82rem; display: flex; align-items: center; gap: 0.4rem;
+    cursor: pointer; user-select: none;
+  }
+  .controls input[type="checkbox"] { accent-color: #C9951C; width: 16px; height: 16px; }
+
+  .panels {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    max-width: 960px; margin: 0 auto; padding: 0 1.5rem 3rem;
+  }
+  @media (max-width: 700px) { .panels { grid-template-columns: 1fr; } }
+
+  .panel {
+    border-radius: 16px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; position: relative;
+    overflow: hidden; min-height: 400px; padding: 2rem 1rem;
+  }
+  .panel.light { background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+  .panel.dark  { background: #1a1a2e; box-shadow: 0 2px 16px rgba(0,0,0,0.2); }
+
+  .panel-label {
+    position: absolute; top: 12px; left: 16px; font-size: 0.7rem;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 6px;
+  }
+  .panel.light .panel-label { background: #f0f2f5; color: #555; }
+  .panel.dark  .panel-label { background: rgba(255,255,255,0.1); color: #aaa; }
+
+  .loading-text {
+    margin-top: 1.6rem; font-size: 0.82rem; letter-spacing: 0.18em;
+    text-transform: uppercase; font-weight: 500; transition: opacity 0.3s;
+  }
+  .loading-text.hidden { opacity: 0; pointer-events: none; }
+  .panel.light .loading-text { color: #888; }
+  .panel.dark  .loading-text { color: #999; }
+
+  @keyframes text-pulse {
+    0%, 100% { opacity: 0.45; }
+    50%      { opacity: 1; }
+  }
+  .loading-text.animate { animation: text-pulse 1.8s ease-in-out infinite; }
+
+  .logo-svg { width: 200px; height: 200px; }
+
+  /* Variant B: continuous rotation on the whole SVG */
+  .spinner .logo-svg {
+    animation: spin var(--spinner-duration) linear infinite;
+    filter: drop-shadow(0 0 8px rgba(201,149,28,0.2));
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Solunar Energy — Logo Loader</h1>
+  <p>Two animation variants side by side. Use checkboxes to toggle options.</p>
+</header>
+
+<div class="controls">
+  <label><input type="checkbox" id="toggleBg"> Dark background</label>
+  <label><input type="checkbox" id="toggleText" checked> Show loading text</label>
+  <label><input type="checkbox" id="toggleTextAnim" checked> Pulse text</label>
+</div>
+
+<div class="panels">
+
+  <!-- ==================== VARIANT A: IRIS APERTURE ==================== -->
+  <div class="panel light" id="panelA">
+    <span class="panel-label">A — Iris Aperture</span>
+    <!-- The blade transforms are animated via JS for cross-browser reliability -->
+    <svg id="irisSvg" class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gA" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#8B6914"/>
+          <stop offset="40%"  stop-color="#C9951C"/>
+          <stop offset="75%"  stop-color="#F0C84D"/>
+          <stop offset="100%" stop-color="#FFE066"/>
+        </linearGradient>
+        <linearGradient id="gS" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#5A6577"/>
+          <stop offset="35%"  stop-color="#8C9BAA"/>
+          <stop offset="70%"  stop-color="#BFC8D4"/>
+          <stop offset="100%" stop-color="#E8ECF0"/>
+        </linearGradient>
+        <radialGradient id="sheen" cx="35%" cy="30%" r="65%">
+          <stop offset="0%"  stop-color="rgba(255,255,255,0.30)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Blades 0-5: Gold (sun rays) — pivot at outer ring, sweep inward -->
+      <g id="blade-0"  data-pivot-x="178" data-pivot-y="100"><path d="M 178.0 100.0 L 177.2 89.1 Q 151.9 118.1 110.3 114.7 Q 127.4 121.8 177.2 110.9 Z" fill="url(#gA)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-1"  data-pivot-x="167.5" data-pivot-y="139"><path d="M 167.5 139.0 L 172.3 129.2 Q 135.9 141.7 101.6 117.9 Q 112.8 132.6 161.5 148.0 Z" fill="url(#gA)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-2"  data-pivot-x="139" data-pivot-y="167.5"><path d="M 139.0 167.5 L 148.0 161.5 Q 110.3 154.0 92.4 116.3 Q 94.8 134.6 129.2 172.3 Z" fill="url(#gA)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-3"  data-pivot-x="100" data-pivot-y="178"><path d="M 100.0 178.0 L 110.9 177.2 Q 81.9 151.9 85.3 110.3 Q 78.2 127.4 89.1 177.2 Z" fill="url(#gA)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-4"  data-pivot-x="61" data-pivot-y="167.5"><path d="M 61.0 167.5 L 70.8 172.3 Q 58.3 135.9 82.1 101.6 Q 67.4 112.8 52.0 161.5 Z" fill="url(#gA)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-5"  data-pivot-x="32.5" data-pivot-y="139"><path d="M 32.5 139.0 L 38.5 148.0 Q 46.0 110.3 83.7 92.4 Q 65.4 94.8 27.7 129.2 Z" fill="url(#gA)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/></g>
+
+      <!-- Blades 6-11: Silver (crescent) -->
+      <g id="blade-6"  data-pivot-x="22" data-pivot-y="100"><path d="M 22.0 100.0 L 22.8 110.9 Q 52.8 83.5 89.7 85.3 Q 76.5 81.3 22.8 89.1 Z" fill="url(#gS)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-7"  data-pivot-x="32.5" data-pivot-y="61"><path d="M 32.5 61.0 L 27.7 70.8 Q 67.4 62.1 98.4 82.1 Q 89.0 72.1 38.5 52.0 Z" fill="url(#gS)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-8"  data-pivot-x="61" data-pivot-y="32.5"><path d="M 61.0 32.5 L 52.0 38.5 Q 90.7 50.9 107.6 83.7 Q 104.4 70.3 70.8 27.7 Z" fill="url(#gS)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-9"  data-pivot-x="100" data-pivot-y="22"><path d="M 100.0 22.0 L 89.1 22.8 Q 116.5 52.8 114.7 89.7 Q 118.7 76.5 110.9 22.8 Z" fill="url(#gS)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-10" data-pivot-x="139" data-pivot-y="32.5"><path d="M 139.0 32.5 L 129.2 27.7 Q 137.9 67.4 117.9 98.4 Q 127.9 89.0 148.0 38.5 Z" fill="url(#gS)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/></g>
+      <g id="blade-11" data-pivot-x="167.5" data-pivot-y="61"><path d="M 167.5 61.0 L 161.5 52.0 Q 149.1 90.7 116.3 107.6 Q 129.7 104.4 172.3 70.8 Z" fill="url(#gS)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/></g>
+
+      <circle cx="100" cy="100" r="82" fill="url(#sheen)" pointer-events="none"/>
+    </svg>
+    <div class="loading-text animate" id="textA">Loading...</div>
+  </div>
+
+  <!-- ==================== VARIANT B: CONTINUOUS SPIN ==================== -->
+  <div class="panel light" id="panelB">
+    <span class="panel-label">B — Continuous Spin</span>
+    <svg class="logo-svg spinner" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gA2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#8B6914"/>
+          <stop offset="40%"  stop-color="#C9951C"/>
+          <stop offset="75%"  stop-color="#F0C84D"/>
+          <stop offset="100%" stop-color="#FFE066"/>
+        </linearGradient>
+        <linearGradient id="gS2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#5A6577"/>
+          <stop offset="35%"  stop-color="#8C9BAA"/>
+          <stop offset="70%"  stop-color="#BFC8D4"/>
+          <stop offset="100%" stop-color="#E8ECF0"/>
+        </linearGradient>
+        <radialGradient id="sheen2" cx="35%" cy="30%" r="65%">
+          <stop offset="0%"  stop-color="rgba(255,255,255,0.30)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+        </radialGradient>
+      </defs>
+      <path d="M 178.0 100.0 L 177.2 89.1 Q 151.9 118.1 110.3 114.7 Q 127.4 121.8 177.2 110.9 Z" fill="url(#gA2)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 167.5 139.0 L 172.3 129.2 Q 135.9 141.7 101.6 117.9 Q 112.8 132.6 161.5 148.0 Z" fill="url(#gA2)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 139.0 167.5 L 148.0 161.5 Q 110.3 154.0 92.4 116.3 Q 94.8 134.6 129.2 172.3 Z" fill="url(#gA2)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 100.0 178.0 L 110.9 177.2 Q 81.9 151.9 85.3 110.3 Q 78.2 127.4 89.1 177.2 Z" fill="url(#gA2)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 61.0 167.5 L 70.8 172.3 Q 58.3 135.9 82.1 101.6 Q 67.4 112.8 52.0 161.5 Z" fill="url(#gA2)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 32.5 139.0 L 38.5 148.0 Q 46.0 110.3 83.7 92.4 Q 65.4 94.8 27.7 129.2 Z" fill="url(#gA2)" stroke="#8B6914" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 22.0 100.0 L 22.8 110.9 Q 52.8 83.5 89.7 85.3 Q 76.5 81.3 22.8 89.1 Z" fill="url(#gS2)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 32.5 61.0 L 27.7 70.8 Q 67.4 62.1 98.4 82.1 Q 89.0 72.1 38.5 52.0 Z" fill="url(#gS2)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 61.0 32.5 L 52.0 38.5 Q 90.7 50.9 107.6 83.7 Q 104.4 70.3 70.8 27.7 Z" fill="url(#gS2)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 100.0 22.0 L 89.1 22.8 Q 116.5 52.8 114.7 89.7 Q 118.7 76.5 110.9 22.8 Z" fill="url(#gS2)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 139.0 32.5 L 129.2 27.7 Q 137.9 67.4 117.9 98.4 Q 127.9 89.0 148.0 38.5 Z" fill="url(#gS2)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/>
+      <path d="M 167.5 61.0 L 161.5 52.0 Q 149.1 90.7 116.3 107.6 Q 129.7 104.4 172.3 70.8 Z" fill="url(#gS2)" stroke="#5A6577" stroke-width="0.4" opacity="0.95"/>
+      <circle cx="100" cy="100" r="82" fill="url(#sheen2)" pointer-events="none"/>
+    </svg>
+    <div class="loading-text animate" id="textB">Loading...</div>
+  </div>
+
+</div>
+
+<script>
+  /* ============================================================
+     IRIS ANIMATION — JS-driven SVG transforms
+     Each blade rotates around its own pivot point using the native
+     SVG transform attribute: rotate(angle, cx, cy).
+     This works reliably across all modern browsers.
+     ============================================================ */
+  (function() {
+    var CYCLE   = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cycle-duration')) || 2;
+    var SWING   = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--iris-blade-swing')) || 25;
+    var STAGGER = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--iris-stagger')) || 40;
+
+    var blades = [];
+    for (var i = 0; i < 12; i++) {
+      var g = document.getElementById('blade-' + i);
+      blades.push({
+        el: g,
+        px: parseFloat(g.getAttribute('data-pivot-x')),
+        py: parseFloat(g.getAttribute('data-pivot-y')),
+        delay: i * STAGGER
+      });
+    }
+
+    var startTime = null;
+
+    function animateIris(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var elapsed = timestamp - startTime;
+      var cycleMs = CYCLE * 1000;
+
+      for (var i = 0; i < blades.length; i++) {
+        var b = blades[i];
+        /* Each blade has its own phase offset (stagger) */
+        var t = ((elapsed - b.delay) % cycleMs) / cycleMs;
+        if (t < 0) t += 1;
+
+        /* Smooth ease-in-out sine curve: 0 -> 1 -> 0 */
+        var angle = SWING * 0.5 * (1 - Math.cos(t * Math.PI * 2));
+
+        /* Apply SVG transform: rotate around the blade's pivot point */
+        b.el.setAttribute('transform', 'rotate(' + angle.toFixed(2) + ' ' + b.px + ' ' + b.py + ')');
+      }
+
+      requestAnimationFrame(animateIris);
+    }
+
+    requestAnimationFrame(animateIris);
+  })();
+
+  /* ============================================================
+     CONTROLS
+     ============================================================ */
+  var panelA = document.getElementById('panelA');
+  var panelB = document.getElementById('panelB');
+  var textA  = document.getElementById('textA');
+  var textB  = document.getElementById('textB');
+
+  document.getElementById('toggleBg').addEventListener('change', function() {
+    var cls = this.checked ? 'dark' : 'light';
+    panelA.className = 'panel ' + cls;
+    panelB.className = 'panel ' + cls;
+  });
+
+  document.getElementById('toggleText').addEventListener('change', function() {
+    textA.classList.toggle('hidden', !this.checked);
+    textB.classList.toggle('hidden', !this.checked);
+  });
+
+  document.getElementById('toggleTextAnim').addEventListener('change', function() {
+    textA.classList.toggle('animate', this.checked);
+    textB.classList.toggle('animate', this.checked);
+  });
+</script>
+
+</body>
+</html>

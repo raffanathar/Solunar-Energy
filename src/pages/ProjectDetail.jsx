@@ -31,19 +31,19 @@ export default function ProjectDetailPage() {
       <Navbar />
       <main className="pt-24 pb-24">
         {loading ? (
-          <div className="flex justify-center py-24"><Loader2 className="w-8 h-8 text-[#0A7A70] animate-spin" /></div>
+          <div className="flex justify-center py-24"><Loader2 className="w-8 h-8 text-[#1E3A5F] animate-spin" /></div>
         ) : !project ? (
           <div className="max-w-2xl mx-auto px-4 text-center py-24">
-            <Monitor className="w-12 h-12 text-[#0A7A70]/30 mx-auto mb-4" />
+            <Monitor className="w-12 h-12 text-[#1E3A5F]/30 mx-auto mb-4" />
             <h1 className="font-jakarta font-bold text-[#0F172A] text-2xl mb-3">Project Not Found</h1>
             <p className="font-inter text-[#475569] mb-6">This project doesn't exist or has been removed.</p>
-            <Link to="/#projects" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0A7A70] text-white font-jakarta font-semibold text-sm">
+            <Link to="/#projects" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1E3A5F] text-white font-jakarta font-semibold text-sm">
               <ArrowLeft className="w-4 h-4" /> Back to Projects
             </Link>
           </div>
         ) : (
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <Link to="/#projects" className="inline-flex items-center gap-2 text-sm font-inter font-medium text-[#0A7A70] hover:text-[#D97706] transition-colors mb-8">
+            <Link to="/#projects" className="inline-flex items-center gap-2 text-sm font-inter font-medium text-[#1E3A5F] hover:text-[#D97706] transition-colors mb-8">
               <ArrowLeft className="w-4 h-4" /> Back to Projects
             </Link>
 
@@ -78,12 +78,12 @@ export default function ProjectDetailPage() {
               <div className="flex flex-wrap gap-x-6 gap-y-2 mb-8 text-sm font-inter text-[#64748B]">
                 {project.location && (
                   <span className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4 text-[#0A7A70]" /> {project.location}
+                    <MapPin className="w-4 h-4 text-[#1E3A5F]" /> {project.location}
                   </span>
                 )}
                 {project.systemSize && (
                   <span className="flex items-center gap-1.5">
-                    <Zap className="w-4 h-4 text-[#0A7A70]" /> {project.systemSize}
+                    <Zap className="w-4 h-4 text-[#1E3A5F]" /> {project.systemSize}
                   </span>
                 )}
               </div>
@@ -118,10 +118,10 @@ export default function ProjectDetailPage() {
               )}
             </div>
 
-            <div className="mt-10 bg-[#0A7A70] rounded-2xl p-8 text-white text-center">
+            <div className="mt-10 bg-[#1E3A5F] rounded-2xl p-8 text-white text-center">
               <h3 className="font-jakarta font-extrabold text-xl mb-2">Want a Similar Setup?</h3>
               <p className="font-inter text-white/80 text-sm mb-5">Get a free site survey and customized quote from Solunar Energy today.</p>
-              <a href="/#quote" className="inline-block px-8 py-3 rounded-full bg-white text-[#0A7A70] font-jakarta font-bold text-sm hover:bg-white/90 transition-colors">
+              <a href="/#quote" className="inline-block px-8 py-3 rounded-full bg-white text-[#1E3A5F] font-jakarta font-bold text-sm hover:bg-white/90 transition-colors">
                 Get Free Quote
               </a>
             </div>

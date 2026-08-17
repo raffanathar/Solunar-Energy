@@ -3,7 +3,7 @@ import { Zap, Battery, Plug, Plus, Check } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 
 const categoryConfig = {
-  Inverter: { icon: Zap, gradient: 'from-[#0A7A70] to-[#0d9488]' },
+  Inverter: { icon: Zap, gradient: 'from-[#1E3A5F] to-[#0d9488]' },
   Battery: { icon: Battery, gradient: 'from-[#D97706] to-[#b45309]' },
   Accessory: { icon: Plug, gradient: 'from-[#0F172A] to-[#334155]' },
 };
@@ -35,7 +35,7 @@ export default function ProductCard({ product }) {
             <Icon className="w-16 h-16 text-white/80" />
           </div>
         )}
-        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur text-xs font-inter font-semibold text-[#0A7A70] border border-[#E2E8F0]">
+        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur text-xs font-inter font-semibold text-[#1E3A5F] border border-[#E2E8F0]">
           {product.category}
         </span>
         {product.brand && (
@@ -54,7 +54,7 @@ export default function ProductCard({ product }) {
           <ul className="mt-2 space-y-0.5">
             {product.specs.slice(0, 3).map((s, i) => (
               <li key={i} className="font-inter text-[11px] text-[#475569] flex items-center gap-1.5">
-                <span className="w-1 h-1 rounded-full bg-[#0A7A70]" />
+                <span className="w-1 h-1 rounded-full bg-[#1E3A5F]" />
                 {s}
               </li>
             ))}
@@ -79,7 +79,7 @@ export default function ProductCard({ product }) {
                 ? 'bg-[#E2E8F0] text-[#94A3B8] cursor-not-allowed'
                 : added
                 ? 'bg-green-500 text-white'
-                : 'bg-[#0A7A70] text-white hover:bg-[#0A7A70]/90'
+                : 'bg-[#1E3A5F] text-white hover:bg-[#1E3A5F]/90'
             }`}
           >
             {added ? (

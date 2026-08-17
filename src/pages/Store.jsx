@@ -35,7 +35,7 @@ export default function Store() {
       <Navbar />
 
       {/* Hero banner */}
-      <section className="relative pt-28 pb-12 lg:pt-36 lg:pb-16 bg-gradient-to-br from-[#0F172A] via-[#0F172A] to-[#0A7A70] overflow-hidden">
+      <section className="relative pt-28 pb-12 lg:pt-36 lg:pb-16 bg-gradient-to-br from-[#0F172A] via-[#0F172A] to-[#1E3A5F] overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #D97706 0, transparent 40%)' }} />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[#D97706] text-xs font-inter font-semibold uppercase tracking-wider mb-4">
@@ -62,8 +62,8 @@ export default function Store() {
                 onClick={() => setActive(c.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-jakarta font-semibold transition-all ${
                   isActiveCat
-                    ? 'bg-[#0A7A70] text-white shadow-md'
-                    : 'bg-white text-[#475569] border border-[#E2E8F0] hover:border-[#0A7A70]/40 hover:text-[#0A7A70]'
+                    ? 'bg-[#1E3A5F] text-white shadow-md'
+                    : 'bg-white text-[#475569] border border-[#E2E8F0] hover:border-[#1E3A5F]/40 hover:text-[#1E3A5F]'
                 }`}
               >
                 <Icon className="w-4 h-4" /> {c.label}
@@ -74,7 +74,7 @@ export default function Store() {
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <Loader2 className="w-7 h-7 text-[#0A7A70] animate-spin" />
+            <Loader2 className="w-7 h-7 text-[#1E3A5F] animate-spin" />
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-20">
@@ -95,7 +95,7 @@ export default function Store() {
             <h3 className="font-jakarta font-bold text-white text-lg">Not sure what you need?</h3>
             <p className="font-inter text-sm text-[#94A3B8] mt-1">Get a free site survey and a custom system recommendation.</p>
           </div>
-          <Link to="/#quote" className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#0A7A70] text-white font-jakarta font-semibold text-sm hover:bg-[#0A7A70]/90 transition-colors whitespace-nowrap">
+          <Link to="/#quote" className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#1E3A5F] text-white font-jakarta font-semibold text-sm hover:bg-[#1E3A5F]/90 transition-colors whitespace-nowrap">
             Get Free Quote <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

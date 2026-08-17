@@ -1,4 +1,4 @@
-import { Sun, Phone, Mail, MapPin, Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
 
 const serviceLinks = [
   'Residential Solar', 'Commercial Solar', 'Industrial Solar',
@@ -21,13 +21,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-[#0A7A70] flex items-center justify-center">
-                <Sun className="w-5 h-5 text-white" />
-              </div>
+            <div className="flex items-center gap-0.5 mb-5">
+              <img src="/logo.png" alt="Solunar Energy" className="h-10 w-auto object-contain" />
               <div>
                 <span className="font-jakarta font-extrabold text-lg text-white leading-none block">Solunar</span>
-                <span className="font-inter text-xs text-[#0A7A70] font-medium tracking-wider uppercase leading-none block">Energy</span>
+                <span className="font-inter text-xs text-[#1E3A5F] font-medium tracking-wider uppercase leading-none block">Energy</span>
               </div>
             </div>
             <p className="font-inter text-sm text-[#94A3B8] leading-relaxed mb-6">
@@ -35,7 +33,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               {[Facebook, Instagram, Youtube, Twitter].map((Icon, i) => (
-                <a key={i} href="#" className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#94A3B8] hover:text-white hover:bg-[#0A7A70]/20 hover:border-[#0A7A70]/30 transition-all duration-300">
+                <a key={i} href="#" className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#94A3B8] hover:text-white hover:bg-[#1E3A5F]/20 hover:border-[#1E3A5F]/30 transition-all duration-300">
                   <Icon className="w-4 h-4" />
                 </a>
               ))}
@@ -48,7 +46,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {quickLinks.map(l => (
                 <li key={l.label}>
-                  <a href={l.href} className="font-inter text-sm text-[#CBD5E1] hover:text-[#0A7A70] transition-colors duration-200">
+                  <a href={l.href} className="font-inter text-sm text-[#CBD5E1] hover:text-[#1E3A5F] transition-colors duration-200">
                     {l.label}
                   </a>
                 </li>
@@ -62,7 +60,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {serviceLinks.map(s => (
                 <li key={s}>
-                  <a href="/#services" className="font-inter text-sm text-[#CBD5E1] hover:text-[#0A7A70] transition-colors duration-200">
+                  <a href="/#services" className="font-inter text-sm text-[#CBD5E1] hover:text-[#1E3A5F] transition-colors duration-200">
                     {s}
                   </a>
                 </li>
@@ -74,16 +72,16 @@ export default function Footer() {
           <div>
             <h4 className="font-jakarta font-bold text-sm tracking-widest uppercase text-[#94A3B8] mb-5">Contact</h4>
             <div className="space-y-4">
-              <a href="tel:+923214407701" className="flex items-start gap-3 group">
-                <Phone className="w-4 h-4 text-[#0A7A70] mt-0.5 flex-shrink-0" />
-                <span className="font-inter text-sm text-[#CBD5E1] group-hover:text-white transition-colors">+92 321 4407701</span>
+              <a href="tel:+923250200632" className="flex items-start gap-3 group">
+                <Phone className="w-4 h-4 text-[#1E3A5F] mt-0.5 flex-shrink-0" />
+                <span className="font-inter text-sm text-[#CBD5E1] group-hover:text-white transition-colors">+92 325 0200632</span>
               </a>
               <a href="mailto:info@solunarenergy.pk" className="flex items-start gap-3 group">
-                <Mail className="w-4 h-4 text-[#0A7A70] mt-0.5 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-[#1E3A5F] mt-0.5 flex-shrink-0" />
                 <span className="font-inter text-sm text-[#CBD5E1] group-hover:text-white transition-colors">info@solunarenergy.pk</span>
               </a>
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[#0A7A70] mt-0.5 flex-shrink-0" />
+                <MapPin className="w-4 h-4 text-[#1E3A5F] mt-0.5 flex-shrink-0" />
                 <span className="font-inter text-sm text-[#CBD5E1]">Lahore, Pakistan</span>
               </div>
             </div>
