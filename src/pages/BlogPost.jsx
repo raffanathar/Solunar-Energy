@@ -12,8 +12,8 @@ import ReactMarkdown from 'react-markdown';
 const defaultPosts = {
   'solar-panels-reduce-bills-pakistan': {
     title: 'How Solar Panels Reduce Electricity Bills in Pakistan',
-    shortDescription: 'Discover how a properly sized solar system can slash your WAPDA/LESCO bills by up to 90%.',
-    content: `## The Pakistan Electricity Crisis\n\nPakistan faces some of the highest electricity tariffs in the region, with bills increasing year over year. The good news? Solar energy offers a permanent, affordable solution.\n\n## How Solar Reduces Your Bill\n\n1. **Direct energy offset** — Solar panels generate electricity during the day, directly powering your appliances and reducing grid consumption.\n\n2. **Net Metering** — Excess electricity is fed back to the DISCO grid. Your meter runs backwards, crediting you for the electricity you generate.\n\n3. **Battery Storage** — Hybrid systems store excess energy for use during load-shedding or nighttime hours.\n\n## Typical Savings in Pakistan\n\n| System Size | Monthly Generation | Approx. Savings |\n|---|---|---|\n| 3 kW | 360–420 units | Rs. 8,000–12,000 |\n| 5 kW | 600–720 units | Rs. 14,000–20,000 |\n| 10 kW | 1,200–1,400 units | Rs. 28,000–40,000 |\n\n## ROI Timeline\n\nA typical 5kW solar system in Pakistan pays for itself within 3–4 years and continues generating free electricity for 25+ years.\n\n## Contact Solunar Energy\n\nReady to slash your electricity bills? Get a free site survey and customized quote from our team.`,
+    shortDescription: 'Discover how a properly sized solar system can slash your WAPDA/LESCO bills — backed by our 3-Year Solar Protection Package.',
+    content: `## **The Pakistan Electricity Crisis**\n\nPakistan faces some of the highest electricity tariffs in the region, with utility rates and surcharges increasing continuously. Solar energy offers a permanent, cost-effective solution to take control of your monthly expenses.\n\n&nbsp;\n\n## **How Solar Reduces Your Bill**\n\n&nbsp;\n\n### **1. Direct Energy Offset**\n\nSolar panels generate electricity during peak daylight hours, directly powering your heavy appliances and drastically reducing expensive grid consumption.\n\n&nbsp;\n\n### **2. Net Metering**\n\nExcess electricity generated during daytime is exported back to your local DISCO grid. Your net meter credits these exported units against the energy you draw at night.\n\n&nbsp;\n\n### **3. Battery Storage**\n\nHybrid and off-grid systems store surplus energy in battery banks for seamless power backup during load-shedding or during non-solar hours.\n\n&nbsp;\n\n## **Typical Savings in Pakistan**\n\n[TABLE]\n\n*Note: Actual savings vary based on your DISCO slab rate, net metering approval, and site orientation.*\n\n&nbsp;\n\n## **ROI Timeline**\n\nBecause per-unit grid tariffs are high, a residential solar system in Pakistan delivers an aggressive return on investment, typically paying for itself within **2.5 to 3.5 years** while providing free, clean energy for a **25+ year lifespan**.\n\n## **Contact Solunar Energy**\n\nReady to slash your electricity bills? Get a free site survey and a customized solar proposal from our engineering team today.`,
     publishedAt: '2026-05-01',
   },
 };
@@ -73,7 +73,43 @@ export default function BlogPostPage() {
 
             <div className="bg-white rounded-2xl border border-[#E2E8F0] p-8 lg:p-12 shadow-sm">
               <div className="prose prose-slate max-w-none font-inter prose-headings:font-jakarta prose-headings:text-[#0F172A] prose-p:text-[#475569] prose-p:leading-relaxed prose-a:text-[#1E3A5F] prose-strong:text-[#0F172A]">
-                <ReactMarkdown>{post.content || post.shortDescription}</ReactMarkdown>
+                {(() => {
+                  const parts = (post.content || post.shortDescription).split('[TABLE]');
+                  return (
+                    <>
+                      <ReactMarkdown>{parts[0]}</ReactMarkdown>
+                      <div className="overflow-x-auto my-8">
+                        <table className="w-full border-collapse text-sm">
+                          <thead>
+                            <tr>
+                              <th className="bg-[#1D3B66] text-white font-bold px-4 py-3 text-center border border-[#1D3B66]">System Size</th>
+                              <th className="bg-[#1D3B66] text-white font-bold px-4 py-3 text-center border border-[#1D3B66]">Average Monthly Generation</th>
+                              <th className="bg-[#1D3B66] text-white font-bold px-4 py-3 text-center border border-[#1D3B66]">Estimated Monthly Bill Savings</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="border border-[#E0E0E0]">
+                              <td className="font-semibold px-4 py-3 text-center border border-[#E0E0E0] bg-[#F8FAFC]">3 kW</td>
+                              <td className="px-4 py-3 text-center border border-[#E0E0E0]">360–420 units</td>
+                              <td className="px-4 py-3 text-center border border-[#E0E0E0]">Rs. 18,000 – 25,000</td>
+                            </tr>
+                            <tr className="border border-[#E0E0E0]">
+                              <td className="font-semibold px-4 py-3 text-center border border-[#E0E0E0] bg-[#F8FAFC]">5 kW</td>
+                              <td className="px-4 py-3 text-center border border-[#E0E0E0]">600–720 units</td>
+                              <td className="px-4 py-3 text-center border border-[#E0E0E0]">Rs. 30,000 – 43,000</td>
+                            </tr>
+                            <tr className="border border-[#E0E0E0]">
+                              <td className="font-semibold px-4 py-3 text-center border border-[#E0E0E0] bg-[#F8FAFC]">10 kW</td>
+                              <td className="px-4 py-3 text-center border border-[#E0E0E0]">1,200–1,400 units</td>
+                              <td className="px-4 py-3 text-center border border-[#E0E0E0]">Rs. 60,000 – 85,000</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      {parts[1] && <ReactMarkdown>{parts[1]}</ReactMarkdown>}
+                    </>
+                  );
+                })()}
               </div>
             </div>
 
