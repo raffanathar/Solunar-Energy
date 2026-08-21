@@ -55,17 +55,15 @@ export default function HeroSection() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1E3A5F]/10 border border-[#1E3A5F]/20 mb-8">
             <Zap className="w-3.5 h-3.5 text-[#1E3A5F]" />
             <span className="font-inter text-xs font-semibold text-[#1E3A5F] tracking-wider uppercase">
-              {/* TODO: CONFIRM — "Pakistan's Trusted Solar Partner" is a brand claim; keep only if defensible. */}
-              Pakistan's Trusted Solar Partner
+                Trusted Solar Partner
             </span>
           </div>
 
           <h1 className="font-jakarta font-extrabold text-[#0F172A] leading-[1.05] tracking-tight mb-6"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}>
-            Pakistan's First<br />
-            {/* TODO: CONFIRM — "Pakistan's First" is a superlative claim; verify it is defensible/accurate. */}
+            Pakistan's Most<br />
             <span className="text-[#1E3A5F] relative">
-              Disaster-Proof Solar
+              Disaster-Protected Solar
               <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 400 12" fill="none">
                 <path d="M0 8 Q100 2 200 8 Q300 14 400 8" stroke="#D97706" strokeWidth="3" fill="none" strokeLinecap="round"/>
               </svg>
@@ -80,8 +78,7 @@ export default function HeroSection() {
           </div>
 
           <p className="font-inter text-lg text-[#475569] leading-relaxed mb-4 max-w-xl">
-            {/* TODO: CONFIRM — "100% Risk-Free" is an absolute claim; confirm the warranty terms support it. */}
-            100% Risk-Free Solar Power. Save up to 70–80%* on your electricity bills with zero worry about the unexpected. Every Solunar Energy installation comes backed by our comprehensive 1 to 3 Year Total Protection Warranty—covering your system against severe weather, hail, fire, and earthquakes. Power your home, business, or industry with absolute peace of mind.
+            Zero worry about the unexpected. Every Solunar Energy installation is backed by a 3-Year Solar Protection Package, arranged through our takaful partner, covering your system against fire, storm, hail, and earthquakes. Save up to 70–80%* on your electricity bills while your investment stays protected — not exposed. Power your home, business, or industry with absolute peace of mind.
           </p>
           <p className="font-inter text-xs text-[#94A3B8] mb-10 max-w-xl">
             *Savings estimates vary by location, electricity usage, and system size. Your exact savings are confirmed after a free site survey.
@@ -91,7 +88,7 @@ export default function HeroSection() {
           <div className="flex flex-wrap gap-4 mb-10">
             {[
               { icon: Shield, text: 'Certified Installers' },
-              { icon: Award, text: 'Quality Guaranteed' },
+              { icon: Award, text: 'Quality Installation' },
               { icon: Zap, text: 'Net Metering Support' },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-center gap-2 text-sm font-inter font-medium text-[#475569]">
@@ -107,18 +104,18 @@ export default function HeroSection() {
               href="#quote"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#1E3A5F] text-white font-jakarta font-bold text-base hover:bg-[#1E3A5F]/90 transition-all duration-500 shadow-xl shadow-[#1E3A5F]/25 hover:shadow-[#1E3A5F]/40 hover:scale-[1.02] group"
             >
-              Get Free Quote
+              Get Protected Solar Quote
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </a>
             <a
-              href={`https://wa.me/923250200632?text=${encodeURIComponent('Hello! I want a free solar quote. Please contact me.')}`}
+              href={`https://wa.me/923250200632?text=${encodeURIComponent('Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year protection package.')}`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackWhatsAppClick('hero')}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-[#25D366] text-[#25D366] font-jakarta font-bold text-base hover:bg-[#25D366]/8 transition-all duration-300 hover:scale-[1.02]"
             >
               <MessageCircle className="w-5 h-5" />
-              WhatsApp Us
+              WhatsApp for Solar Assessment
             </a>
           </div>
         </div>

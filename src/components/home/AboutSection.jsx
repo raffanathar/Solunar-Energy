@@ -8,14 +8,14 @@ const values = [
   'Transparent pricing, no hidden costs',
   'Customized solar packages for every budget',
   'Net metering guidance and paperwork',
-  // TODO: CONFIRM — "20+ cities" service-area claim; verify actual service areas.
-  'Serving 20+ cities across Pakistan',
+  // TODO: CONFIRM — service-area claim; confirm exact cities.
+  'Serving Lahore and Islamabad/Rawalpindi',
 ];
 
 const pillars = [
   { icon: Globe, title: 'Local Expertise', desc: "Deep understanding of Pakistan's electricity landscape, WAPDA/LESCO/FESCO grid requirements, and regional solar potential." },
-  // TODO: CONFIRM REAL FIGURE — "500+ solar systems" installation count; replace with verified number.
-  { icon: Users, title: 'Experienced Team', desc: 'Our certified engineers have installed 500+ solar systems across residential, commercial, and industrial properties.' },
+  // TODO: CONFIRM REAL FIGURE — installation count; replace with verified number.
+  { icon: Users, title: 'Experienced Team', desc: 'Our certified engineers have installed solar systems across residential, commercial, and industrial properties.' },
   { icon: HeartHandshake, title: 'After-Sales Care', desc: 'We stand behind every installation with maintenance contracts, performance monitoring, and rapid response support.' },
 ];
 
@@ -40,14 +40,14 @@ export default function AboutSection() {
             </div>
             {/* Floating stat card */}
             <div className="absolute -bottom-6 -right-4 lg:-right-8 bg-white rounded-2xl shadow-2xl border border-[#E2E8F0] p-5 w-44">
-              {/* TODO: CONFIRM REAL FIGURE — "500+" installation count placeholder. */}
-              <div className="font-jakarta font-extrabold text-3xl text-[#1E3A5F]">500+</div>
+              {/* TODO: CONFIRM REAL FIGURE — installation count placeholder. Replace with verified number. */}
+              <div className="font-jakarta font-extrabold text-3xl text-[#1E3A5F]">TBD</div>
               <div className="font-inter text-xs text-[#475569] mt-1">Successful solar installations across Pakistan</div>
             </div>
             {/* Badge */}
             <div className="absolute -top-4 -left-4 bg-[#D97706] text-white rounded-2xl shadow-xl p-4 w-28 text-center">
-              {/* TODO: CONFIRM REAL FIGURE — "15+ years" placeholder. */}
-              <div className="font-jakarta font-extrabold text-2xl">15+</div>
+              {/* TODO: CONFIRM REAL FIGURE — company age placeholder. Replace with verified number. */}
+              <div className="font-jakarta font-extrabold text-2xl">TBD</div>
               <div className="font-inter text-xs font-medium">Years in Solar</div>
             </div>
           </div>
@@ -58,8 +58,8 @@ export default function AboutSection() {
               <span className="font-inter text-xs font-semibold text-[#1E3A5F] tracking-wider uppercase">About Solunar Energy</span>
             </div>
             <h2 className="font-jakarta font-extrabold text-[#0F172A] text-4xl lg:text-5xl leading-tight tracking-tight mb-6">
-              Pakistan's Solar <br />
-              <span className="text-[#1E3A5F]">Energy Pioneer</span>
+              Your Trusted Solar <br />
+              <span className="text-[#1E3A5F]">Energy Partner</span>
             </h2>
             <p className="font-inter text-[#475569] text-base leading-relaxed mb-8">
               Solunar Energy is a Pakistan-based solar energy company on a mission to make clean, affordable electricity accessible to every home and business. We bring together cutting-edge technology, local expertise, and a genuine commitment to reducing Pakistan's energy crisis — one rooftop at a time.

@@ -151,7 +151,7 @@ export default function QuoteSection() {
                   <label className="block font-inter text-xs font-semibold text-[#475569] uppercase tracking-wider mb-1.5">City *</label>
                   <input required value={form.city} onChange={e => setForm(f => ({...f, city: e.target.value}))}
                     className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white font-inter text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/30 focus:border-[#1E3A5F]"
-                    placeholder="Lahore, Karachi, Islamabad..." />
+                    placeholder="Lahore, Islamabad..." />
                 </div>
                 <div>
                   <label className="block font-inter text-xs font-semibold text-[#475569] uppercase tracking-wider mb-1.5">Additional Message</label>
@@ -199,7 +199,7 @@ export default function QuoteSection() {
                 <button onClick={handleSubmit} disabled={!form.fullName || !form.phone || submitting}
                   className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl bg-[#D97706] text-white font-jakarta font-bold disabled:opacity-40 hover:bg-[#D97706]/90 transition-all duration-300 shadow-lg shadow-[#D97706]/25">
                   {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                  {submitting ? 'Sending...' : 'Get My Free Quote'}
+                  {submitting ? 'Sending...' : 'Get My Protected Solar Quote'}
                 </button>
               </div>
             </div>

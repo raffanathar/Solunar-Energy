@@ -23,11 +23,11 @@ const faqs = [
   },
   {
     q: 'What warranty and after-sales support do you provide?',
-    a: 'Every Solunar Energy installation is backed by our 1 to 3 Year Total Protection Warranty, covering your system against severe weather, hail, fire, and earthquakes. We also offer annual maintenance contracts, performance monitoring, and on-site support after installation.',
+    a: 'Every Solunar Energy installation is backed by our 3-Year Solar Protection Package. Protection is arranged through our takaful partner and is subject to applicable policy terms, exclusions, limits, and customer contribution/depreciation. The package covers your system against severe weather, hail, fire, and earthquakes. We also offer annual maintenance contracts, performance monitoring, and on-site support after installation.',
   },
   {
-    q: 'How do I get a free quote?',
-    a: 'Complete the 3-step quote form above or send us a WhatsApp message. Our team will contact you, arrange a free site survey, and design a system sized to your actual electricity usage.',
+    q: 'How do I get a protected solar quote?',
+    a: 'Complete the 3-step quote form above or send us a WhatsApp message. Our team will contact you, arrange a free site survey, and design a system sized to your actual electricity usage — complete with the 3-Year Solar Protection Package.',
   },
 ];
 
@@ -76,7 +76,7 @@ export default function FaqSection() {
 
         <div className="mt-10 text-center">
           <a
-            href={`https://wa.me/923250200632?text=${encodeURIComponent('Hello! I have a question about solar.')}`}
+            href={`https://wa.me/923250200632?text=${encodeURIComponent('Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year protection package.')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border-2 border-[#1E3A5F] text-[#1E3A5F] font-jakarta font-bold text-sm hover:bg-[#1E3A5F]/5 transition-all duration-300"

@@ -96,7 +96,7 @@ export default function Store() {
             <p className="font-inter text-sm text-[#94A3B8] mt-1">Get a free site survey and a custom system recommendation.</p>
           </div>
           <Link to="/#quote" className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#1E3A5F] text-white font-jakarta font-semibold text-sm hover:bg-[#1E3A5F]/90 transition-colors whitespace-nowrap">
-            Get Free Quote <ArrowRight className="w-4 h-4" />
+            Get Protected Solar Quote <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

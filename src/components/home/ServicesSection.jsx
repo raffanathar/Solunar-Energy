@@ -69,7 +69,7 @@ export default function ServicesSection() {
             <span className="text-[#1E3A5F]">For Every Need</span>
           </h2>
           <p className="font-inter text-[#475569] text-base leading-relaxed">
-            From residential rooftops to industrial complexes, Solunar Energy designs, supplies, and installs customized solar systems across Pakistan.
+            From residential rooftops to industrial complexes, Solunar Energy designs, supplies, and installs customized solar systems.
           </p>
         </div>
 

@@ -4,14 +4,14 @@ const reasons = [
   // TODO: CONFIRM — "25-year performance" panel warranty claim; verify against actual panel warranty terms.
   { icon: Award, title: 'Tier-1 Solar Panels', desc: 'We only install LONGi, JA Solar, and other globally certified Tier-1 panels for maximum efficiency and 25-year performance.' },
   { icon: ShieldCheck, title: 'Certified Inverters', desc: 'Huawei, Deye, Solis, and SMA inverters — trusted brands with proven reliability in Pakistan\'s climate conditions.' },
-  // TODO: CONFIRM — "AEDB-registered engineers" credential claim; verify registration/current validity.
-  { icon: Star, title: 'Expert Installation', desc: 'Our AEDB-registered engineers follow international standards. Clean, safe, and code-compliant installations every time.' },
+  // TODO: CONFIRM REAL FIGURE — "AEDB-registered engineers" credential claim; verify registration/current validity.
+  { icon: Star, title: 'Expert Installation', desc: 'Our engineers follow international standards. Clean, safe, and code-compliant installations every time.' },
   { icon: DollarSign, title: 'Affordable Packages', desc: 'Competitive pricing with flexible payment options. We\'ll find a solution that fits your budget without compromising quality.' },
   { icon: Zap, title: 'Net Metering Support', desc: 'Complete end-to-end net metering application assistance with DISCO/LESCO/FESCO. We handle all the paperwork.' },
-  // TODO: CONFIRM — "protected for life" after-sales guarantee claim; confirm maintenance-contract coverage.
-  { icon: Wrench, title: 'After-Sales Service', desc: 'Annual maintenance contracts, performance monitoring, and rapid on-site support. Your investment is protected for life.' },
+  // TODO: CONFIRM REAL FIGURE — after-sales support scope; confirm maintenance-contract coverage details.
+  { icon: Wrench, title: 'After-Sales Service', desc: 'Annual maintenance contracts, performance monitoring, and rapid on-site support. Your investment is well-supported.' },
   { icon: TrendingDown, title: 'Energy Consultation', desc: 'Free load analysis and energy audit to design the optimal solar system — no overselling, just the right solution.' },
-  { icon: Globe, title: 'Nationwide Support', desc: 'Service centers in Lahore, Islamabad, Faisalabad, Multan, Karachi, and growing. Local support when you need it.' },
+  { icon: Globe, title: 'Local Support', desc: 'Service centers in Lahore and Islamabad/Rawalpindi. Local support when you need it.' },
 ];
 
 export default function WhyUsSection() {
@@ -36,8 +36,8 @@ export default function WhyUsSection() {
             The Solunar <span className="text-[#D97706]">Difference</span>
           </h2>
           <p className="font-inter text-[#94A3B8] text-base leading-relaxed">
-            {/* TODO: CONFIRM REAL FIGURE — "500+ families and businesses" count placeholder. */}
-            We combine technical excellence with genuine care for our customers. Here's why 500+ Pakistani families and businesses chose Solunar Energy.
+            {/* TODO: CONFIRM REAL FIGURE — installation count placeholder. Replace with verified number. */}
+            We combine technical excellence with genuine care for our customers. Here's why Pakistani families and businesses choose Solunar Energy.
           </p>
         </div>
 
@@ -66,7 +66,7 @@ export default function WhyUsSection() {
             href="#quote"
             className="flex-shrink-0 px-8 py-4 rounded-full bg-[#1E3A5F] text-white font-jakarta font-bold text-base hover:bg-[#1E3A5F]/90 transition-all duration-300 shadow-xl shadow-[#1E3A5F]/30 hover:scale-105"
           >
-            Get Free Quote
+            Get Protected Solar Quote
           </a>
         </div>
       </div>

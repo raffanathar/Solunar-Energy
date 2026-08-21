@@ -81,7 +81,7 @@ export default function BlogPostPage() {
               <h3 className="font-jakarta font-extrabold text-xl mb-2">Ready to Go Solar?</h3>
               <p className="font-inter text-white/80 text-sm mb-5">Get a free site survey and customized quote from Solunar Energy today.</p>
               <a href="/#quote" className="inline-block px-8 py-3 rounded-full bg-white text-[#1E3A5F] font-jakarta font-bold text-sm hover:bg-white/90 transition-colors">
-                Get Free Quote
+                Get Protected Solar Quote
               </a>
             </div>
           </div>

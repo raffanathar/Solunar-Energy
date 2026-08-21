@@ -105,7 +105,7 @@ export default function Navbar() {
               onClick={() => trackCTA('navbar_mobile_quote')}
               className="px-4 py-2 rounded-full bg-[#1E3A5F] text-white text-xs font-jakarta font-semibold shadow-md shadow-[#1E3A5F]/20"
             >
-              Free Quote
+              Protected Quote
             </a>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -149,7 +149,7 @@ export default function Navbar() {
                 onClick={() => { setMobileOpen(false); trackCTA('navbar_mobile_menu_quote'); }}
                 className="block w-full text-center px-4 py-3 rounded-full bg-[#1E3A5F] text-white font-jakarta font-semibold text-sm"
               >
-                Get Free Quote
+              Get Protected Solar Quote
               </a>
             </div>
           </div>
