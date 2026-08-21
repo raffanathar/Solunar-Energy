@@ -37,7 +37,7 @@ const AuthenticatedApp = () => {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-[#F8FAFC]">
         <div className="flex flex-col items-center gap-4">
-          <img src="/logo.png" alt="Solunar Energy" className="h-20 w-auto object-contain" style={{animation: "logo-spin 1s ease-in-out forwards"}} />
+           <img src="/logo-quotation.png" alt="Solunar Energy" className="h-20 w-auto object-contain" style={{animation: "logo-spin 1s ease-in-out forwards"}} />
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 import { Phone, Mail, MapPin, MessageCircle, Clock, ChevronRight } from 'lucide-react';
 import { trackWhatsAppClick } from '@/lib/analytics';
 
-const serviceAreas = ['Lahore', 'Islamabad', 'Rawalpindi'];
+const serviceAreas = ['Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Multan', 'Karachi', 'Gujranwala', 'Sialkot', 'Peshawar', 'Quetta', 'Hyderabad', 'Bahawalpur'];
 
 const WHATSAPP_MSG = 'Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year protection package.';
 
@@ -70,7 +70,7 @@ export default function ContactSection() {
           {/* Right: service areas + map placeholder */}
           <div>
             <div className="bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0] p-7 mb-6">
-              <h3 className="font-jakarta font-bold text-[#0F172A] text-lg mb-5">Service Areas</h3>
+              <h3 className="font-jakarta font-bold text-[#0F172A] text-lg mb-5">Service Areas Across Pakistan</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {serviceAreas.map(city => (
                   <div key={city} className="flex items-center gap-2 py-2">
@@ -79,7 +79,7 @@ export default function ContactSection() {
                   </div>
                 ))}
               </div>
-              <p className="font-inter text-xs text-[#94A3B8] mt-4">Contact us to confirm availability in your area.</p>
+              <p className="font-inter text-xs text-[#94A3B8] mt-4">+ Other cities across Pakistan. Contact us to confirm availability in your area.</p>
             </div>
 
             {/* Map placeholder */}

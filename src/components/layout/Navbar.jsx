@@ -41,7 +41,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-0.5 group">
             <img
-              src="/logo.png"
+              src="/logo-quotation.png"
               alt="Solunar Energy"
               className="h-9 lg:h-11 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm"
             />

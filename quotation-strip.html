@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Solunar Energy — Quotation Strip</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #DDE3EA;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page { margin: 0; }
+
+  .a4-wrapper {
+    width: 100%;
+    max-width: 210mm;
+    margin: 0 auto;
+  }
+
+  .strip {
+    width: 100%;
+    box-sizing: border-box;
+    height: 120px;
+    background: linear-gradient(90deg, #8EAAD3 0%, #5A7FA8 30%, #1E3A5F 60%, #0F2137 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 6px 6px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Gold accent line at bottom */
+  .strip::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #D97706, #D4AF37 50%, #D97706);
+  }
+
+  /* Subtle background pattern */
+  .strip::before {
+    content: "";
+    position: absolute;
+    top: -40px; right: -20px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(217,119,6,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .strip-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 1;
+  }
+
+  .logo-box {
+    width: 160px;
+    height: 100px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .strip-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    z-index: 1;
+  }
+  .strip-right .contact-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+  }
+  .strip-right .contact-line svg {
+    width: 14px; height: 14px;
+    color: #D97706;
+    flex-shrink: 0;
+  }
+  .strip-right .doc-type {
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #D97706;
+    border: 1px solid rgba(217,119,6,0.4);
+    padding: 4px 14px;
+    border-radius: 99px;
+    background: rgba(217,119,6,0.08);
+    margin-top: 4px;
+  }
+
+  .guide {
+    width: 100%;
+    max-width: 210mm;
+    margin: 12px auto 0;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .a4-wrapper { max-width: 100%; }
+    .guide { display: none; }
+    .strip { border-radius: 0; box-shadow: none; width: 100% !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="a4-wrapper">
+  <div class="strip">
+    <div class="strip-left">
+      <div class="logo-box">
+        <img src="public/logo-strip.png" alt="Solunar Energy">
+      </div>
+    </div>
+    <div class="strip-right">
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +92 325 0200632
+      </div>
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        info@solunarenergy.pk
+      </div>
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        solunarenergy.pk
+      </div>
+      <div class="doc-type">Quotation</div>
+    </div>
+  </div>
+  <div class="guide">Screenshot or export this strip to use as a header in your Excel quotation sheet. Recommended width: 1050px.</div>
+</div>
+
+</body>
+</html>

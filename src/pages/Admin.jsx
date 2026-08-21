@@ -274,7 +274,7 @@ function LoginForm({ onSuccess }) {
       <div className="w-full max-w-sm">
         <div className="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] p-8">
           <div className="flex flex-col items-center mb-8">
-            <img src="/logo.png" alt="Solunar Energy" className="h-10 w-auto object-contain mb-4" />
+            <img src="/logo-quotation.png" alt="Solunar Energy" className="h-10 w-auto object-contain mb-4" />
             <h1 className="font-jakarta font-extrabold text-[#0F172A] text-xl">Admin Login</h1>
             <p className="font-inter text-sm text-[#475569] mt-1">Sign in to manage your site</p>
           </div>
@@ -403,7 +403,7 @@ export default function Admin() {
       <aside className="w-16 lg:w-64 bg-[#0F172A] flex flex-col flex-shrink-0">
         <div className="p-4 lg:p-6 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="Solunar Energy" className="h-8 w-auto object-contain flex-shrink-0" />
+            <img src="/logo-quotation.png" alt="Solunar Energy" className="h-8 w-auto object-contain flex-shrink-0" />
             <div className="hidden lg:block">
               <div className="font-jakarta font-extrabold text-white text-base leading-none">Solunar</div>
               <div className="font-inter text-xs text-[#1E3A5F] font-medium">Energy</div>

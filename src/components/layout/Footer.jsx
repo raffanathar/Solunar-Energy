@@ -22,7 +22,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-0.5 mb-5">
-              <img src="/logo.png" alt="Solunar Energy" className="h-10 w-auto object-contain" />
+              <img src="/logo-quotation.png" alt="Solunar Energy" className="h-10 w-auto object-contain" />
               <div>
                 <span className="font-jakarta font-extrabold text-lg text-white leading-none block">Solunar</span>
                 <span className="font-inter text-xs text-[#1E3A5F] font-medium tracking-wider uppercase leading-none block">Energy</span>
