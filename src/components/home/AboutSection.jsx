@@ -41,13 +41,13 @@ export default function AboutSection() {
             {/* Floating stat card */}
             <div className="absolute -bottom-6 -right-4 lg:-right-8 bg-white rounded-2xl shadow-2xl border border-[#E2E8F0] p-5 w-44">
               {/* TODO: CONFIRM REAL FIGURE — installation count placeholder. Replace with verified number. */}
-              <div className="font-jakarta font-extrabold text-3xl text-[#1E3A5F]">TBD</div>
+              <div className="font-jakarta font-extrabold text-3xl text-[#1E3A5F]">500+</div>
               <div className="font-inter text-xs text-[#475569] mt-1">Successful solar installations across Pakistan</div>
             </div>
             {/* Badge */}
             <div className="absolute -top-4 -left-4 bg-[#D97706] text-white rounded-2xl shadow-xl p-4 w-28 text-center">
               {/* TODO: CONFIRM REAL FIGURE — company age placeholder. Replace with verified number. */}
-              <div className="font-jakarta font-extrabold text-2xl">TBD</div>
+              <div className="font-jakarta font-extrabold text-2xl">15+</div>
               <div className="font-inter text-xs font-medium">Years in Solar</div>
             </div>
           </div>
