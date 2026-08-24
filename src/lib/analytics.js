@@ -55,6 +55,14 @@ export function track(event, params = {}) {
   }
 }
 
-export const trackQuoteSubmit = () => track('generate_lead', { form_name: 'free_quote' });
-export const trackWhatsAppClick = (label = 'whatsapp') => track('whatsapp_click', { event_label: label });
-export const trackCTA = (label) => track('cta_click', { event_label: label });
+export const trackQuoteSubmit = () => {
+  track('generate_lead', { form_name: 'free_quote' });
+  try { window.fbq?.('track', 'Lead', { content_name: 'quote_form' }); } catch(e) {}
+};
+export const trackWhatsAppClick = (label = 'whatsapp') => {
+  track('whatsapp_click', { event_label: label });
+  try { window.fbq?.('trackCustom', 'WhatsAppClick', { event_label: label }); } catch(e) {}
+};
+export const trackCTA = (label) => {
+  track('cta_click', { event_label: label });
+};
