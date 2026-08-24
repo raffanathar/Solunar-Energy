@@ -4,9 +4,9 @@ import { trackWhatsAppClick } from '@/lib/analytics';
 // TODO: CONFIRM REAL FIGURES — the following stats are unverified placeholders.
 // Replace each value with verified data before launch.
 const stats = [
-  { value: '500+', label: 'Projects Installed' }, // TODO: CONFIRM REAL FIGURE — real installation count
+  { value: '300+', label: 'Projects Installed' }, // TODO: CONFIRM REAL FIGURE — real installation count
   { value: '15+', label: 'Years Experience' }, // TODO: CONFIRM REAL FIGURE — company age
-  { value: '100%', label: 'Customer Satisfaction' }, // TODO: CONFIRM REAL FIGURE — satisfaction metric + source
+  { value: '3 Year', label: 'Protection Package' }, // TODO: CONFIRM REAL FIGURE — matches 3-Year Solar Protection Package
   { value: '70–80%*', label: 'Avg Bill Savings' }, // TODO: CONFIRM REAL FIGURE — user-provided placeholder until real data
 ];
 
@@ -87,7 +87,7 @@ export default function HeroSection() {
           {/* Trust badges */}
           <div className="flex flex-wrap gap-4 mb-10">
             {[
-              { icon: Shield, text: 'Certified Installers' },
+              { icon: Shield, text: 'Qualified Installers' },
               { icon: Award, text: 'Quality Installation' },
               { icon: Zap, text: 'Net Metering Support' },
             ].map(({ icon: Icon, text }) => (
