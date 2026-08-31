@@ -61,7 +61,7 @@ export default function HeroSection() {
 
           <h1 className="font-jakarta font-extrabold text-[#0F172A] leading-[1.05] tracking-tight mb-6"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}>
-            Pakistan's Most<br />
+            Pakistan's Leading<br />
             <span className="text-[#1E3A5F] relative">
               Disaster-Protected Solar
               <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 400 12" fill="none">
