@@ -3,7 +3,7 @@ import { trackWhatsAppClick } from '@/lib/analytics';
 
 const serviceAreas = ['Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Multan', 'Karachi', 'Gujranwala', 'Sialkot', 'Peshawar', 'Quetta', 'Hyderabad', 'Bahawalpur'];
 
-const WHATSAPP_MSG = 'Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year protection package.';
+const WHATSAPP_MSG = 'Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year disaster security package.';
 
 export default function ContactSection() {
   return (

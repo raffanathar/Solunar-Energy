@@ -6,7 +6,7 @@ import { trackWhatsAppClick } from '@/lib/analytics';
 const stats = [
   { value: '300+', label: 'Projects Installed' }, // TODO: CONFIRM REAL FIGURE — real installation count
   { value: '15+', label: 'Years Experience' }, // TODO: CONFIRM REAL FIGURE — company age
-  { value: '3 Year', label: 'Protection Package' }, // TODO: CONFIRM REAL FIGURE — matches 3-Year Solar Protection Package
+  { value: '3 Year', label: 'Disaster Security Package' }, // TODO: CONFIRM REAL FIGURE — matches 3-Year Disaster Security Package
   { value: '70–80%*', label: 'Avg Bill Savings' }, // TODO: CONFIRM REAL FIGURE — user-provided placeholder until real data
 ];
 
@@ -78,7 +78,7 @@ export default function HeroSection() {
           </div>
 
           <p className="font-inter text-lg text-[#475569] leading-relaxed mb-4 max-w-xl">
-            Zero worry about the unexpected. Every Solunar Energy installation is backed by a 3-Year Solar Protection Package, arranged through our takaful partner, covering your system against fire, storm, hail, and earthquakes. Save up to 70–80%* on your electricity bills while your investment stays protected — not exposed. Power your home, business, or industry with absolute peace of mind.
+            Zero worry about the unexpected. Every Solunar Energy installation is backed by a 3-Year Disaster Security Package, arranged through our takaful partner, covering your system against fire, storm, hail, and earthquakes. Save up to 70–80%* on your electricity bills while your investment stays protected — not exposed. Power your home, business, or industry with absolute peace of mind.
           </p>
           <p className="font-inter text-xs text-[#94A3B8] mb-10 max-w-xl">
             *Savings estimates vary by location, electricity usage, and system size. Your exact savings are confirmed after a free site survey.
@@ -108,7 +108,7 @@ export default function HeroSection() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </a>
             <a
-              href={`https://wa.me/923250200632?text=${encodeURIComponent('Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year protection package.')}`}
+              href={`https://wa.me/923250200632?text=${encodeURIComponent('Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year disaster security package.')}`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackWhatsAppClick('hero')}

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { MessageCircle, Zap } from 'lucide-react';
 import { trackWhatsAppClick, trackCTA } from '@/lib/analytics';
 
-const WHATSAPP_URL = `https://wa.me/923250200632?text=${encodeURIComponent('Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year protection package.')}`;
+const WHATSAPP_URL = `https://wa.me/923250200632?text=${encodeURIComponent('Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year disaster security package.')}`;
 
 export default function MobileStickyCta() {
   const [visible, setVisible] = useState(false);

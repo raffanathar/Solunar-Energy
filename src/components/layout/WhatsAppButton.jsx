@@ -3,7 +3,7 @@ import { trackWhatsAppClick } from '@/lib/analytics';
 
 export default function WhatsAppButton() {
   const whatsappNumber = '923250200632';
-  const message = encodeURIComponent('Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year protection package.');
+  const message = encodeURIComponent('Assalam-o-Alaikum, I want a quotation for a solar system with the 3-year disaster security package.');
   const url = `https://wa.me/${whatsappNumber}?text=${message}`;
 
   return (
