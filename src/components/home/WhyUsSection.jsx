@@ -1,12 +1,13 @@
-import { Star, ShieldCheck, Wrench, DollarSign, Zap, Globe, Award, TrendingDown } from 'lucide-react';
+import { Star, ShieldCheck, Wrench, DollarSign, Zap, Globe, Award, TrendingDown, CreditCard } from 'lucide-react';
 
 const reasons = [
   // TODO: CONFIRM — "25-year performance" panel warranty claim; verify against actual panel warranty terms.
+  { icon: CreditCard, title: 'Easy Installments', desc: 'Flexible payment plans so you don\'t have to pay the full amount upfront.' },
   { icon: Award, title: 'Tier-1 Solar Panels', desc: 'We only install LONGi, JA Solar, and other globally certified Tier-1 panels for maximum efficiency and 25-year performance.' },
   { icon: ShieldCheck, title: 'Certified Inverters', desc: 'Huawei, Deye, Solis, and SMA inverters — trusted brands with proven reliability in Pakistan\'s climate conditions.' },
   // TODO: CONFIRM REAL FIGURE — "AEDB-registered engineers" credential claim; verify registration/current validity.
   { icon: Star, title: 'Expert Installation', desc: 'Our engineers follow international standards. Clean, safe, and code-compliant installations every time.' },
-  { icon: DollarSign, title: 'Affordable Packages', desc: 'Competitive pricing with flexible payment options. We\'ll find a solution that fits your budget without compromising quality.' },
+  { icon: DollarSign, title: 'Affordable Packages', desc: 'Competitive pricing on Tier-1 components without compromising quality.' },
   { icon: Zap, title: 'Net Metering Support', desc: 'Complete end-to-end net metering application assistance with DISCO/LESCO/FESCO. We handle all the paperwork.' },
   // TODO: CONFIRM REAL FIGURE — after-sales support scope; confirm maintenance-contract coverage details.
   { icon: Wrench, title: 'After-Sales Service', desc: 'Annual maintenance contracts, performance monitoring, and rapid on-site support. Your investment is well-supported.' },
@@ -41,7 +42,7 @@ export default function WhyUsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {reasons.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}

@@ -1,4 +1,5 @@
-import { ArrowRight, MessageCircle, Zap, Shield, Award } from 'lucide-react';
+import { ArrowRight, MessageCircle, Zap, Shield, Award, CreditCard } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { trackWhatsAppClick } from '@/lib/analytics';
 
 // TODO: CONFIRM REAL FIGURES — the following stats are unverified placeholders.
@@ -8,6 +9,7 @@ const stats = [
   { value: '15+', label: 'Years Experience' }, // TODO: CONFIRM REAL FIGURE — company age
   { value: '3 Year', label: 'Disaster Security Package' }, // TODO: CONFIRM REAL FIGURE — matches 3-Year Disaster Security Package
   { value: '70–80%*', label: 'Avg Bill Savings' }, // TODO: CONFIRM REAL FIGURE — user-provided placeholder until real data
+  { value: 'Installments', label: 'Flexible Payment Plans' },
 ];
 
 export default function HeroSection() {
@@ -70,15 +72,28 @@ export default function HeroSection() {
             </span>
           </h1>
 
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D97706]/10 border border-[#D97706]/30 mb-6">
+          <Link
+            to="/disaster-security-package"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D97706]/10 border border-[#D97706]/30 mb-6 cursor-pointer hover:bg-[#D97706]/20 transition-colors duration-200"
+          >
             <Shield className="w-4 h-4 text-[#D97706]" />
             <span className="font-inter text-sm font-semibold text-[#B45309] tracking-wide uppercase">
               Covered Against Fire, Hail, Earthquakes &amp; Storms
             </span>
-          </div>
+          </Link>
+
+          <Link
+            to="/installments"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EA580C]/10 border border-[#EA580C]/20 mb-6 ml-3 cursor-pointer hover:bg-[#EA580C]/20 transition-colors duration-200"
+          >
+            <CreditCard className="w-4 h-4 text-[#EA580C]" />
+            <span className="font-inter text-sm font-semibold text-[#EA580C] tracking-wide uppercase">
+              Easy Installments — Flexible payment plans
+            </span>
+          </Link>
 
           <p className="font-inter text-lg text-[#475569] leading-relaxed mb-4 max-w-xl">
-            Zero worry about the unexpected. Every Solunar Energy installation is backed by a 3-Year Disaster Security Package, arranged through our takaful partner, covering your system against fire, storm, hail, and earthquakes. Save up to 70–80%* on your electricity bills while your investment stays protected — not exposed. Power your home, business, or industry with absolute peace of mind.
+            Zero worry about the unexpected. Every Solunar Energy installation is backed by a 3-Year Disaster Security Package covering your system against fire, storm, hail, and earthquakes. Save up to 70–80%* on your electricity bills while your investment stays protected — not exposed. Power your home, business, or industry with absolute peace of mind.
           </p>
           <p className="font-inter text-xs text-[#94A3B8] mb-10 max-w-xl">
             *Savings estimates vary by location, electricity usage, and system size. Your exact savings are confirmed after a free site survey.
@@ -121,7 +136,7 @@ export default function HeroSection() {
         </div>
 
         {/* Stats bar */}
-        <div className="mt-16 lg:mt-20 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-[#E2E8F0] bg-white/70 backdrop-blur-sm rounded-2xl border border-[#E2E8F0] p-6 lg:p-0 shadow-sm">
+        <div className="mt-16 lg:mt-20 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-0 lg:divide-x lg:divide-[#E2E8F0] bg-white/70 backdrop-blur-sm rounded-2xl border border-[#E2E8F0] p-6 lg:p-0 shadow-sm">
           {stats.map((s, i) => (
             <div key={i} className="lg:px-8 lg:py-6 text-center lg:text-left">
               <div className="font-jakarta font-extrabold text-3xl text-[#1E3A5F] mb-1">{s.value}</div>

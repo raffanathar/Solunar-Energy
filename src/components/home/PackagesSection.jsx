@@ -1,57 +1,15 @@
 const db = globalThis.__B44_DB__ || { auth:{ isAuthenticated: async()=>false, me: async()=>null }, entities:new Proxy({}, { get:()=>({ filter:async()=>[], get:async()=>null, create:async()=>({}), update:async()=>({}), delete:async()=>({}) }) }), integrations:{ Core:{ UploadFile:async()=>({ file_url:'' }) } } };
 
 import { useState, useEffect } from 'react';
-import { Sun, Loader2, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Sun, Loader2, MessageCircle, CreditCard, ArrowRight } from 'lucide-react';
 import { trackWhatsAppClick } from '@/lib/analytics';
+import { defaultPackages } from '@/lib/package-data';
 
 // TODO: CONFIRM — the defaultPackages below contain estimated monthly unit outputs,
 // load-coverage percentages, and component lists that are NOT verified against real
 // pricing/engineering data. They are fallbacks shown only when no SolarPackage records
 // exist in the CMS. Confirm/update each figure before publishing.
-const defaultPackages = [
-  {
-    id: 'p1', name: '3kW Home Starter', systemSize: '3 kW', bestFor: 'Small Homes & Apartments',
-    monthlyUnits: '380–430 units/month', coveragePercent: 60,
-    components: ['5 × 720W N-type Bifacial Panels', '4kW Hybrid/On-grid/Off-grid Inverter', 'Mounting/Elevated Structure', 'Net-billing Support', '5kW Lithium Battery'],
-  },
-  {
-    id: 'p2', name: '6kW Home Premium', systemSize: '6 kW', bestFor: 'Medium Homes',
-    monthlyUnits: '700–780 units/month', coveragePercent: 80,
-    components: ['9 × 720W N-type Bifacial Panels', '6kW Hybrid/On-grid/Off-grid Inverter IP21/IP65', 'Mounting/Elevated Structure', 'Net-billing Support', '5kW/7.5kW Lithium Battery'],
-    highlight: true,
-  },
-  {
-    id: 'p3', name: '8kW Comfort', systemSize: '8 kW', bestFor: 'Large Homes & Offices',
-    monthlyUnits: '900–1,120 units/month', coveragePercent: 90,
-    components: ['12 × 720W N-type Bifacial Panels', '8kW Hybrid/On-grid/Off-grid Inverter IP65', 'Mounting/Elevated Structure', 'Net-billing Support', '5kW/7.5kW/15kW Lithium Battery'],
-  },
-  {
-    id: 'p4', name: '10kW Commercial', systemSize: '10 kW', bestFor: 'Offices & Shops',
-    monthlyUnits: '1,050–1,200 units/month', coveragePercent: 90,
-    components: ['14 × 720W N-type Bifacial Panels', '10kW Hybrid/On-grid/Off-grid Inverter IP21/IP65', 'Mounting/Elevated Structure', 'Net-billing Support', '5kW/7.5kW/15kW Lithium Battery'],
-  },
-  {
-    id: 'p5', name: '12kW Premium', systemSize: '12 kW', bestFor: 'Large Offices & Small Factories',
-    monthlyUnits: '1,300–1,600 units/month', coveragePercent: 95,
-    components: ['18 × 720W N-type Bifacial Panels', '10kW Hybrid/On-grid/Off-grid Inverter IP65', 'Mounting/Elevated Structure', 'Net-billing Support', '7.5kW/15kW/22kW Lithium Battery'],
-  },
-  {
-    id: 'p6', name: '15kW Business', systemSize: '15 kW', bestFor: 'Factories & Large Offices',
-    monthlyUnits: '1,650–2,000 units/month', coveragePercent: 95,
-    components: ['22 × 720W N-type Bifacial Panels', '15kW Hybrid/On-grid/Off-grid Inverter IP65', 'Mounting/Elevated Structure', 'Net-billing Support', '15kW/22kW/30kW Lithium Battery'],
-  },
-  {
-    id: 'p7', name: '20kW Business', systemSize: '20 kW', bestFor: 'Factories, Large Homes & Large Offices',
-    monthlyUnits: '2,100–2,500 units/month', coveragePercent: 95,
-    components: ['28 × 720W N-type Bifacial Panels', '20kW Hybrid/On-grid/Off-grid Inverter IP65', 'Mounting/Elevated Structure', 'Net-billing Support', '22kW/30kW/50kW Lithium Battery'],
-  },
-  {
-    id: 'p8', name: 'Custom Industrial', systemSize: 'Custom', bestFor: 'Factories, Farms & Large Industries',
-    monthlyUnits: 'Based on load analysis', coveragePercent: 100,
-    components: ['Tier-1 Panels (LONGi/JA Solar)', 'Industrial Grade Inverters', 'Custom Engineering Design', 'Full Project Management'],
-  },
-];
-
 function PackageCard({ pkg }) {
   const whatsappMsg = encodeURIComponent(`Hi! I'm interested in the ${pkg.name} (${pkg.systemSize}) solar package. Please share the latest price.`);
 
@@ -97,7 +55,7 @@ function PackageCard({ pkg }) {
       </div>
 
       <div className="mb-5 p-3 bg-[#F8FAFC] rounded-xl border border-[#E2E8F0]">
-        <div className="text-xs font-inter font-semibold text-[#475569] uppercase tracking-wider mb-1">Monthly Generation</div>
+        <div className="text-xs font-inter font-semibold text-[#475569] uppercase tracking-wider mb-1">Unit Consumption</div>
         <div className="font-jakarta font-bold text-sm text-[#D97706]">{pkg.monthlyUnits}</div>
       </div>
 
@@ -160,6 +118,29 @@ export default function PackagesSection() {
           <p className="font-inter text-[#475569] text-base leading-relaxed">
             Transparent packages designed for every budget and need. Prices vary — contact us for the latest quote tailored to your exact requirements.
           </p>
+        </div>
+
+        {/* Installments banner */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#EA580C]/8 border border-[#EA580C]/25 rounded-2xl p-5 sm:p-6 mb-10">
+          <div className="flex items-start sm:items-center gap-3">
+            <span className="flex-shrink-0 w-10 h-10 rounded-full bg-[#EA580C]/15 flex items-center justify-center">
+              <CreditCard className="w-5 h-5 text-[#EA580C]" />
+            </span>
+            <div>
+              <div className="font-jakarta font-bold text-[#0F172A] text-sm sm:text-base mb-1">
+                Every package — just 20% down
+              </div>
+              <div className="font-inter text-xs sm:text-sm text-[#475569] leading-relaxed">
+                No matter which package you choose, you pay only a 20% downpayment. Then pick a 1-year or 2-year plan to spread the remaining balance — your monthly installment depends on the plan you select.
+              </div>
+            </div>
+          </div>
+          <Link
+            to="/installments"
+            className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#EA580C] text-white font-jakarta font-semibold text-sm hover:bg-[#EA580C]/90 transition-all duration-300 shadow-md shadow-[#EA580C]/20 whitespace-nowrap"
+          >
+            Learn More About Installments <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
         {loading ? (
