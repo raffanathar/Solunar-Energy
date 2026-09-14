@@ -1,5 +1,17 @@
 // Shared default solar package data used by the homepage Packages section
 // and the Installments page fallback when no SolarPackage records exist in the CMS.
+// Battery-size price lookup per package (Rs). Fill in a value for a battery size to
+// show its price on the package card; leave null to display "Contact for latest price".
+export const packageBatteryPrices = {
+  '3kW Home Starter': {},
+  '6kW Home Premium': { '5kW': null, '7.5kW': null },
+  '8kW Comfort': { '5kW': null, '7.5kW': null, '15kW': null },
+  '10kW Commercial': { '5kW': null, '7.5kW': null, '15kW': null },
+  '12kW Premium': { '7.5kW': null, '15kW': null, '22kW': null },
+  '15kW Business': { '15kW': null, '22kW': null, '30kW': null },
+  '20kW Business': { '22kW': null, '30kW': null, '50kW': null },
+  'Custom Industrial': {},
+};
 export const defaultPackages = [
   {
     id: 'p1', name: '3kW Home Starter', systemSize: '3 kW', bestFor: 'Small Homes & Apartments',

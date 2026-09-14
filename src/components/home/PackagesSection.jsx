@@ -4,14 +4,27 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Sun, Loader2, MessageCircle, CreditCard, ArrowRight } from 'lucide-react';
 import { trackWhatsAppClick } from '@/lib/analytics';
-import { defaultPackages } from '@/lib/package-data';
+import { defaultPackages, packageBatteryPrices } from '@/lib/package-data';
 
 // TODO: CONFIRM — the defaultPackages below contain estimated monthly unit outputs,
 // load-coverage percentages, and component lists that are NOT verified against real
 // pricing/engineering data. They are fallbacks shown only when no SolarPackage records
 // exist in the CMS. Confirm/update each figure before publishing.
+function getBatteryOptions(pkg) {
+  const line = pkg.components?.find(c => typeof c === 'string' && c.includes('Lithium Battery'));
+  if (!line) return [];
+  return line.replace(' Lithium Battery', '').split('/').map(s => s.trim()).filter(Boolean);
+}
+
 function PackageCard({ pkg }) {
-  const whatsappMsg = encodeURIComponent(`Hi! I'm interested in the ${pkg.name} (${pkg.systemSize}) solar package. Please share the latest price.`);
+  const batteryOptions = getBatteryOptions(pkg);
+  const multiBattery = batteryOptions.length > 1;
+  const [battery, setBattery] = useState(multiBattery ? batteryOptions[0] : null);
+  const batteryPrices = packageBatteryPrices[pkg.name] || {};
+  const selectedPrice = battery ? batteryPrices[battery] : null;
+
+  const batteryDetail = multiBattery && battery ? ` with a ${battery} lithium battery` : '';
+  const whatsappMsg = encodeURIComponent(`Hi! I'm interested in the ${pkg.name} (${pkg.systemSize}) solar package${batteryDetail}. Please share the latest price.`);
 
   return (
     <div className={`relative group bg-white rounded-2xl border-2 p-6 card-hover flex flex-col ${
@@ -59,8 +72,8 @@ function PackageCard({ pkg }) {
         <div className="font-jakarta font-bold text-sm text-[#D97706]">{pkg.monthlyUnits}</div>
       </div>
 
-      <ul className="space-y-2 mb-6 flex-1">
-        {pkg.components.map((c, i) => (
+      <ul className="space-y-2 mb-5 flex-1">
+        {pkg.components.filter(c => !(multiBattery && typeof c === 'string' && c.includes('Lithium Battery'))).map((c, i) => (
           <li key={i} className="flex items-center gap-2 text-sm font-inter text-[#475569]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A5F] flex-shrink-0" />
             {c}
@@ -68,9 +81,31 @@ function PackageCard({ pkg }) {
         ))}
       </ul>
 
+      {multiBattery && (
+        <div className="mb-5">
+          <div className="text-xs font-inter font-semibold text-[#475569] uppercase tracking-wider mb-2">Battery Size</div>
+          <div className="flex flex-wrap gap-1.5">
+            {batteryOptions.map(opt => (
+              <button
+                key={opt}
+                type="button"
+                onClick={() => setBattery(opt)}
+                className={`px-3 py-1.5 rounded-full text-xs font-jakarta font-semibold border transition-all duration-300 ${
+                  battery === opt
+                    ? 'bg-[#D97706] border-[#D97706] text-white shadow-md shadow-[#D97706]/25'
+                    : 'bg-[#F8FAFC] border-[#E2E8F0] text-[#475569] hover:border-[#D97706]/50 hover:text-[#1E3A5F]'
+                }`}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="space-y-2">
         <div className="w-full text-center py-2 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-xs font-inter text-[#475569] italic">
-          Contact for latest price
+          {selectedPrice ? `Rs. ${selectedPrice} (${battery} battery)` : 'Contact for latest price'}
         </div>
         <a
           href={`https://wa.me/923250200632?text=${whatsappMsg}`}
@@ -80,7 +115,7 @@ function PackageCard({ pkg }) {
           className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#D97706] text-white font-jakarta font-bold text-sm hover:bg-[#D97706]/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#D97706]/25"
         >
           <MessageCircle className="w-4 h-4" />
-          Get Price
+          Get Quote
         </a>
       </div>
     </div>
