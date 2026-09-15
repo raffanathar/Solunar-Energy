@@ -6,8 +6,8 @@ import { Sun, Loader2, MessageCircle, CreditCard, ArrowRight } from 'lucide-reac
 import { trackWhatsAppClick } from '@/lib/analytics';
 import { defaultPackages } from '@/lib/package-data';
 
-// Verified component pricing (Rs). Inverter + battery prices; base system cost,
-// earthing, and mounting add the full picture. Values flag null/absent as "not yet priced".
+// Verified component pricing (Rs). Inverter + battery prices. Values flag
+// null/absent as "not yet priced".
 const COMPONENT_PRICES = {
   inverters: {
     '4kW': 75000,
@@ -17,6 +17,8 @@ const COMPONENT_PRICES = {
     '10kW_IP21': 210000,
     '10kW_IP65': 370000,
     '12kW': 525000,
+    '15kW': 670000,
+    '20kW': 870000,
   },
   batteries: {
     '2.5kW': 130000,
@@ -25,34 +27,50 @@ const COMPONENT_PRICES = {
     '15kW': 580000,
     '30kW': 1160000,
     '45kW': 1740000,
-    // '22kW': null  <-- NOT AVAILABLE. Do not invent a value. See 12kW card handling.
+    // '22kW' NOT AVAILABLE — disable wherever it appears, never add here. '45kW' is the max priced battery.
   },
 };
 
-// Base cost = panels + electrical + installation, EXCLUDING inverter, battery, earthing, mounting.
-// Derived from Solunar's real system pricing (confirmed Sept 2026).
+// Exact client-confirmed totals for 3kW, 6kW, 8kW. NO earthing, NO mounting on
+// these tiers. Lookup key = "{inverterKey}|{batteryKey}".
+const FIXED_TIER_TOTALS = {
+  '3kW': {
+    '4kW|5kW': 497000,
+  },
+  '6kW': {
+    '6kW_IP21|5kW': 820000,
+    '6kW_IP21|7.5kW': 920000,
+    '6kW_IP65|5kW': 905000,
+    '6kW_IP65|7.5kW': 1005000,
+  },
+  '8kW': {
+    '8kW|5kW': 1155000,
+    '8kW|7.5kW': 1257000,
+    '8kW|15kW': 1510000,
+  },
+};
+
+// Base cost = panels + electrical + installation, EXCLUDING inverter, battery,
+// earthing, mounting. Only 10kW+ tiers use the derived formula.
 const BASE_SYSTEM_COST = {
-  '3kW': 192000,
-  '6kW': 460000,
-  '8kW': 612000,
   '10kW': 715000,
   '12kW': 900000,
+  '15kW': 1140000,  // ESTIMATE — extrapolated, not directly client-confirmed
+  '20kW': 1520000,  // ESTIMATE — extrapolated, not directly client-confirmed
 };
 
-// Flat earthing/SPD cost — applies to every tier.
+// Flat earthing/SPD cost — applies ONLY to 10kW/12kW/15kW/20kW tiers.
 const EARTHING_FLAT = 50000;
 
-// Mounting/elevated structure cost — ONLY applies to 10kW and 12kW tiers.
-// Per-panel rate = frame (₹10,950 / 2 panels) + civil blocks (₹1,650 × 2) + Z-clamps (₹950 × 2) = ₹10,675/panel
+// Mounting/elevated structure cost — applies ONLY to 10kW+ tiers.
+// Per-panel rate = frame (₹10,950 / 2 panels) + civil blocks (₹1,650 × 2) + Z-clamps (₹950 × 2) = ₹10,675/panel.
 const MOUNTING_PER_PANEL = 10675;
 const PANEL_COUNT = {
-  '3kW': 5,
-  '6kW': 9,
-  '8kW': 12,
   '10kW': 14,
   '12kW': 18,
+  '15kW': 22,
+  '20kW': 28,
 };
-const MOUNTING_ELIGIBLE_TIERS = ['10kW', '12kW'];
 
 // TODO: CONFIRM — the defaultPackages below contain estimated monthly unit outputs,
 // load-coverage percentages, and component lists that are NOT verified against real
@@ -85,17 +103,25 @@ function normalizeTier(systemSize) {
   return m ? `${m[1]}kW` : null;
 }
 
-function computeSystemTotal(tier, inverterKey, battery) {
-  if (!tier || !inverterKey || !battery) return null;
-  const base = BASE_SYSTEM_COST[tier];
-  const inv = COMPONENT_PRICES.inverters[inverterKey];
-  const batt = COMPONENT_PRICES.batteries[battery];
-  if (typeof base !== 'number' || typeof inv !== 'number' || typeof batt !== 'number') return null;
-  let total = base + inv + batt + EARTHING_FLAT;
-  if (MOUNTING_ELIGIBLE_TIERS.includes(tier)) {
-    total += (PANEL_COUNT[tier] || 0) * MOUNTING_PER_PANEL;
+function getEstimatedPrice(tier, selectedInverterKey, selectedBatteryKey) {
+  if (!tier || !selectedInverterKey || !selectedBatteryKey) return null;
+  if (FIXED_TIER_TOTALS[tier]) {
+    const key = `${selectedInverterKey}|${selectedBatteryKey}`;
+    return FIXED_TIER_TOTALS[tier][key] ?? null;
   }
-  return total;
+  const base = BASE_SYSTEM_COST[tier];
+  const inv = COMPONENT_PRICES.inverters[selectedInverterKey];
+  const bat = COMPONENT_PRICES.batteries[selectedBatteryKey];
+  if (typeof base !== 'number' || typeof inv !== 'number' || typeof bat !== 'number') return null;
+  const mounting = PANEL_COUNT[tier] * MOUNTING_PER_PANEL;
+  return base + inv + bat + EARTHING_FLAT + mounting;
+}
+
+function isBatteryEnabled(tier, inverterKey, batteryKey) {
+  if (FIXED_TIER_TOTALS[tier]) {
+    return FIXED_TIER_TOTALS[tier][`${inverterKey}|${batteryKey}`] != null;
+  }
+  return COMPONENT_PRICES.batteries[batteryKey] != null;
 }
 
 function PackageCard({ pkg }) {
@@ -104,13 +130,14 @@ function PackageCard({ pkg }) {
   const multiBattery = batteryOptions.length > 1;
   const multiInverter = inverterSpecs.length > 1;
 
-  const enabledBatteries = batteryOptions.filter(o => COMPONENT_PRICES.batteries[o] != null);
-  const [battery, setBattery] = useState(enabledBatteries[0] || null);
-  const [inverterIndex, setInverterIndex] = useState(0);
-
   const tier = normalizeTier(pkg.systemSize);
+  const [inverterIndex, setInverterIndex] = useState(0);
   const inverterKey = inverterSpecs[inverterIndex] ? inverterSpecs[inverterIndex].key : null;
-  const liveTotal = computeSystemTotal(tier, inverterKey, battery);
+
+  const enabledBatteries = batteryOptions.filter(o => isBatteryEnabled(tier, inverterKey, o));
+  const [battery, setBattery] = useState(enabledBatteries[0] || null);
+
+  const liveTotal = getEstimatedPrice(tier, inverterKey, battery);
 
   const batteryDetail = battery ? ` with a ${battery} lithium battery` : '';
   const whatsappMsg = encodeURIComponent(`Hi! I'm interested in the ${pkg.name} (${pkg.systemSize}) solar package${batteryDetail}. Please share the latest price.`);
@@ -204,7 +231,7 @@ function PackageCard({ pkg }) {
           <div className="text-xs font-inter font-semibold text-[#475569] uppercase tracking-wider mb-2">Battery Size</div>
           <div className="flex flex-wrap gap-1.5">
             {batteryOptions.map(opt => {
-              const hasPrice = COMPONENT_PRICES.batteries[opt] != null;
+              const hasPrice = isBatteryEnabled(tier, inverterKey, opt);
               return hasPrice ? (
                 <button
                   key={opt}

@@ -35,11 +35,11 @@ export const defaultPackages = [
   {
     id: 'p7', name: '20kW Business', systemSize: '20 kW', bestFor: 'Factories, Large Homes & Large Offices',
     monthlyUnits: '2,100–2,500 units/month', coveragePercent: 95,
-    components: ['28 × 720W N-type Bifacial Panels', '20kW Hybrid/On-grid/Off-grid Inverter IP65', 'Mounting/Elevated Structure', 'Net-billing Support', '22kW/30kW/50kW Lithium Battery'],
+    components: ['28 × 720W N-type Bifacial Panels', '20kW Hybrid/On-grid/Off-grid Inverter IP65', 'Mounting/Elevated Structure', 'Net-billing Support', '22kW/30kW/45kW Lithium Battery'],
   },
   {
     id: 'p8', name: 'Custom Industrial', systemSize: 'Custom', bestFor: 'Factories, Farms & Large Industries',
     monthlyUnits: 'Based on load analysis', coveragePercent: 100,
-    components: ['Tier-1 Panels (LONGi/JA Solar)', 'Industrial Grade Inverters', 'Custom Engineering Design', 'Full Project Management'],
+    components: ['N-type Bifacial Panels', 'Industrial Grade Inverters', 'Custom Engineering Design', 'Full Project Management'],
   },
 ];
