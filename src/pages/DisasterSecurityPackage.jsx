@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Shield, Flame, Wind, CloudHail, Activity, ArrowRight, HelpCircle, Plus, CheckCircle, Zap } from 'lucide-react';
+import { Shield, Flame, Wind, CloudHail, Activity, ArrowRight, HelpCircle, Plus, Zap } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/layout/WhatsAppButton';

@@ -7,6 +7,7 @@ import AboutSection from '@/components/home/AboutSection';
 import ServicesSection from '@/components/home/ServicesSection';
 import PackagesSection from '@/components/home/PackagesSection';
 import InstallmentsTeaserSection from '@/components/home/InstallmentsTeaserSection';
+import BatteryStorageTeaserSection from '@/components/home/BatteryStorageTeaserSection';
 import ProjectsSection from '@/components/home/ProjectsSection';
 import WhyUsSection from '@/components/home/WhyUsSection';
 import ReviewsSection from '@/components/home/ReviewsSection';
@@ -25,6 +26,7 @@ export default function Home() {
         <AboutSection />
         <ServicesSection />
         <PackagesSection />
+        <BatteryStorageTeaserSection />
         <InstallmentsTeaserSection />
         <ProjectsSection />
         <WhyUsSection />

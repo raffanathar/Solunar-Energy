@@ -15,6 +15,7 @@ import ProjectDetail from '@/pages/ProjectDetail';
 import Store from '@/pages/Store';
 import Installments from '@/pages/Installments';
 import DisasterSecurityPackage from '@/pages/DisasterSecurityPackage';
+import BatteryStorage from '@/pages/BatteryStorage';
 import { CartProvider } from '@/lib/cart-context';
 import CartDrawer from '@/components/store/CartDrawer';
 
@@ -60,6 +61,7 @@ const AuthenticatedApp = () => {
       <Route path="/store" element={<Store />} />
       <Route path="/installments" element={<Installments />} />
       <Route path="/disaster-security-package" element={<DisasterSecurityPackage />} />
+      <Route path="/battery-storage" element={<BatteryStorage />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />

@@ -20,6 +20,7 @@ const navLinks = [
 const packagesDropdown = [
   { label: 'Solar Packages', href: '/#packages' },
   { label: 'Installment Packages', href: '/installments' },
+  { label: 'Battery Storage', href: '/battery-storage' },
 ];
 
 export default function Navbar() {

@@ -353,6 +353,19 @@ export default function PackagesSection() {
           </span>
         </div>
 
+        {/* BESS teaser banner */}
+        <div className="mb-8 flex flex-col sm:flex-row items-center justify-between gap-3 rounded-xl border border-[#1E3A5F]/25 bg-[#1E3A5F]/5 px-4 sm:px-6 py-3">
+          <span className="font-inter text-xs sm:text-sm text-[#1E3A5F] text-center sm:text-left leading-relaxed">
+            Running an industrial site or commercial building?{' '}
+            <Link to="/battery-storage" className="font-jakarta font-bold text-[#D97706] hover:underline">
+              Explore our Battery Storage solutions &rarr;
+            </Link>
+          </span>
+          <span className="flex-shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#D97706] text-white text-[10px] font-jakarta font-bold uppercase tracking-wider">
+            New
+          </span>
+        </div>
+
         {loading ? (
           <div className="flex justify-center py-16">
             <Loader2 className="w-8 h-8 text-[#1E3A5F] animate-spin" />
