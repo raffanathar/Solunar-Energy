@@ -48,6 +48,10 @@ const howItWorks = [
 
 const terms = [
   {
+    q: 'Which systems qualify for this package?',
+    a: 'The 3-Year Disaster Security Package is included at no extra cost with any Solunar solar installation priced at Rs. 10 lac (1,000,000) or more. Systems below this value are not eligible for this package. Contact us if you\'d like to confirm whether your planned system qualifies.',
+  },
+  {
     q: 'What is NOT covered?',
     a: 'The package does not cover routine wear and tear, gradual deterioration, damage caused by intentional acts, negligence in maintenance, unauthorized modifications, or pre-existing defects. Systems that are not maintained or serviced per our recommended schedule may not qualify for cover.',
   },
@@ -110,13 +114,16 @@ export default function DisasterSecurityPackage() {
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 25% 60%, #D97706 0, transparent 40%)' }} />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D97706]/20 border border-[#D97706]/40 text-[#D97706] text-xs font-inter font-semibold uppercase tracking-wider mb-5">
-            <Shield className="w-3.5 h-3.5" /> Included With Every Installation
+            <Shield className="w-3.5 h-3.5" /> Included With Qualifying Installations
           </span>
           <h1 className="font-jakarta font-extrabold text-white text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4">
             The 3-Year <span className="text-[#D97706]">Disaster Security Package</span>
           </h1>
           <p className="font-inter text-[#CBD5E1] text-sm sm:text-base mt-3 max-w-2xl mx-auto">
             Complete protection for your solar investment against fire, storm, hail, and earthquake damage.
+          </p>
+          <p className="font-inter text-[#94A3B8] text-xs sm:text-sm mt-3 max-w-2xl mx-auto">
+            Included with every solar installation of Rs. 10 lac (1,000,000) or more.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
