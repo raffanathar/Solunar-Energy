@@ -4,7 +4,55 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Sun, Loader2, MessageCircle, CreditCard, ArrowRight } from 'lucide-react';
 import { trackWhatsAppClick } from '@/lib/analytics';
-import { defaultPackages, packageBatteryPrices } from '@/lib/package-data';
+import { defaultPackages } from '@/lib/package-data';
+
+// Verified component pricing (Rs). Inverter + battery prices; base system cost,
+// earthing, and mounting add the full picture. Values flag null/absent as "not yet priced".
+const COMPONENT_PRICES = {
+  inverters: {
+    '4kW': 75000,
+    '6kW_IP21': 130000,
+    '6kW_IP65': 215000,
+    '8kW': 315000,
+    '10kW_IP21': 210000,
+    '10kW_IP65': 370000,
+    '12kW': 525000,
+  },
+  batteries: {
+    '2.5kW': 130000,
+    '5kW': 230000,
+    '7.5kW': 330000,
+    '15kW': 580000,
+    '30kW': 1160000,
+    '45kW': 1740000,
+    // '22kW': null  <-- NOT AVAILABLE. Do not invent a value. See 12kW card handling.
+  },
+};
+
+// Base cost = panels + electrical + installation, EXCLUDING inverter, battery, earthing, mounting.
+// Derived from Solunar's real system pricing (confirmed Sept 2026).
+const BASE_SYSTEM_COST = {
+  '3kW': 192000,
+  '6kW': 460000,
+  '8kW': 612000,
+  '10kW': 715000,
+  '12kW': 900000,
+};
+
+// Flat earthing/SPD cost — applies to every tier.
+const EARTHING_FLAT = 50000;
+
+// Mounting/elevated structure cost — ONLY applies to 10kW and 12kW tiers.
+// Per-panel rate = frame (₹10,950 / 2 panels) + civil blocks (₹1,650 × 2) + Z-clamps (₹950 × 2) = ₹10,675/panel
+const MOUNTING_PER_PANEL = 10675;
+const PANEL_COUNT = {
+  '3kW': 5,
+  '6kW': 9,
+  '8kW': 12,
+  '10kW': 14,
+  '12kW': 18,
+};
+const MOUNTING_ELIGIBLE_TIERS = ['10kW', '12kW'];
 
 // TODO: CONFIRM — the defaultPackages below contain estimated monthly unit outputs,
 // load-coverage percentages, and component lists that are NOT verified against real
@@ -16,15 +64,63 @@ function getBatteryOptions(pkg) {
   return line.replace(' Lithium Battery', '').split('/').map(s => s.trim()).filter(Boolean);
 }
 
+function getInverterSpecs(pkg) {
+  const line = pkg.components?.find(c => typeof c === 'string' && c.includes('Inverter'));
+  if (!line) return [];
+  const sizeMatch = line.match(/(\d+(?:\.\d+)?)kW/);
+  if (!sizeMatch) return [];
+  const size = `${sizeMatch[1]}kW`;
+  if (line.includes('IP21/IP65')) {
+    return [
+      { key: `${size}_IP21`, label: 'IP21' },
+      { key: `${size}_IP65`, label: 'IP65' },
+    ];
+  }
+  return [{ key: size, label: null }];
+}
+
+function normalizeTier(systemSize) {
+  if (!systemSize) return null;
+  const m = String(systemSize).replace(/\s+/g, '').match(/(\d+)/);
+  return m ? `${m[1]}kW` : null;
+}
+
+function computeSystemTotal(tier, inverterKey, battery) {
+  if (!tier || !inverterKey || !battery) return null;
+  const base = BASE_SYSTEM_COST[tier];
+  const inv = COMPONENT_PRICES.inverters[inverterKey];
+  const batt = COMPONENT_PRICES.batteries[battery];
+  if (typeof base !== 'number' || typeof inv !== 'number' || typeof batt !== 'number') return null;
+  let total = base + inv + batt + EARTHING_FLAT;
+  if (MOUNTING_ELIGIBLE_TIERS.includes(tier)) {
+    total += (PANEL_COUNT[tier] || 0) * MOUNTING_PER_PANEL;
+  }
+  return total;
+}
+
 function PackageCard({ pkg }) {
   const batteryOptions = getBatteryOptions(pkg);
+  const inverterSpecs = getInverterSpecs(pkg);
   const multiBattery = batteryOptions.length > 1;
-  const [battery, setBattery] = useState(multiBattery ? batteryOptions[0] : null);
-  const batteryPrices = packageBatteryPrices[pkg.name] || {};
-  const selectedPrice = battery ? batteryPrices[battery] : null;
+  const multiInverter = inverterSpecs.length > 1;
 
-  const batteryDetail = multiBattery && battery ? ` with a ${battery} lithium battery` : '';
+  const enabledBatteries = batteryOptions.filter(o => COMPONENT_PRICES.batteries[o] != null);
+  const [battery, setBattery] = useState(enabledBatteries[0] || null);
+  const [inverterIndex, setInverterIndex] = useState(0);
+
+  const tier = normalizeTier(pkg.systemSize);
+  const inverterKey = inverterSpecs[inverterIndex] ? inverterSpecs[inverterIndex].key : null;
+  const liveTotal = computeSystemTotal(tier, inverterKey, battery);
+
+  const batteryDetail = battery ? ` with a ${battery} lithium battery` : '';
   const whatsappMsg = encodeURIComponent(`Hi! I'm interested in the ${pkg.name} (${pkg.systemSize}) solar package${batteryDetail}. Please share the latest price.`);
+
+  const componentFilter = c =>
+    typeof c !== 'string' ||
+    !(
+      (multiInverter && c.includes('Inverter')) ||
+      (multiBattery && c.includes('Lithium Battery'))
+    );
 
   return (
     <div className={`relative group bg-white rounded-2xl border-2 p-6 card-hover flex flex-col ${
@@ -72,8 +168,8 @@ function PackageCard({ pkg }) {
         <div className="font-jakarta font-bold text-sm text-[#D97706]">{pkg.monthlyUnits}</div>
       </div>
 
-      <ul className="space-y-2 mb-5 flex-1">
-        {pkg.components.filter(c => !(multiBattery && typeof c === 'string' && c.includes('Lithium Battery'))).map((c, i) => (
+      <ul className="space-y-2 mb-4 flex-1">
+        {pkg.components.filter(componentFilter).map((c, i) => (
           <li key={i} className="flex items-center gap-2 text-sm font-inter text-[#475569]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A5F] flex-shrink-0" />
             {c}
@@ -81,31 +177,76 @@ function PackageCard({ pkg }) {
         ))}
       </ul>
 
-      {multiBattery && (
-        <div className="mb-5">
-          <div className="text-xs font-inter font-semibold text-[#475569] uppercase tracking-wider mb-2">Battery Size</div>
+      {multiInverter && (
+        <div className="mb-4">
+          <div className="text-xs font-inter font-semibold text-[#475569] uppercase tracking-wider mb-2">Inverter</div>
           <div className="flex flex-wrap gap-1.5">
-            {batteryOptions.map(opt => (
+            {inverterSpecs.map((spec, i) => (
               <button
-                key={opt}
+                key={spec.key}
                 type="button"
-                onClick={() => setBattery(opt)}
+                onClick={() => setInverterIndex(i)}
                 className={`px-3 py-1.5 rounded-full text-xs font-jakarta font-semibold border transition-all duration-300 ${
-                  battery === opt
+                  inverterIndex === i
                     ? 'bg-[#D97706] border-[#D97706] text-white shadow-md shadow-[#D97706]/25'
                     : 'bg-[#F8FAFC] border-[#E2E8F0] text-[#475569] hover:border-[#D97706]/50 hover:text-[#1E3A5F]'
                 }`}
               >
-                {opt}
+                {spec.label}
               </button>
             ))}
           </div>
         </div>
       )}
 
+      {multiBattery && (
+        <div className="mb-4">
+          <div className="text-xs font-inter font-semibold text-[#475569] uppercase tracking-wider mb-2">Battery Size</div>
+          <div className="flex flex-wrap gap-1.5">
+            {batteryOptions.map(opt => {
+              const hasPrice = COMPONENT_PRICES.batteries[opt] != null;
+              return hasPrice ? (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => setBattery(opt)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-jakarta font-semibold border transition-all duration-300 ${
+                    battery === opt
+                      ? 'bg-[#D97706] border-[#D97706] text-white shadow-md shadow-[#D97706]/25'
+                      : 'bg-[#F8FAFC] border-[#E2E8F0] text-[#475569] hover:border-[#D97706]/50 hover:text-[#1E3A5F]'
+                  }`}
+                >
+                  {opt}
+                </button>
+              ) : (
+                <span
+                  key={opt}
+                  title="Price pending — contact us"
+                  className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-jakarta font-semibold border bg-[#F1F5F9] border-[#E2E8F0] text-[#94A3B8] opacity-60 cursor-not-allowed select-none"
+                >
+                  {opt}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       <div className="space-y-2">
-        <div className="w-full text-center py-2 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-xs font-inter text-[#475569] italic">
-          {selectedPrice ? `Rs. ${selectedPrice} (${battery} battery)` : 'Contact for latest price'}
+        <div className="w-full py-2.5 px-3 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+          <div className="font-jakarta font-bold text-[10px] sm:text-[11px] uppercase tracking-wider text-[#0A1F44] mb-0.5">
+            Estimated Total System Price
+          </div>
+          {liveTotal !== null ? (
+            <>
+              <div className="font-jakarta font-extrabold text-xl text-[#D4AF37]">Rs. {liveTotal.toLocaleString()}*</div>
+              <div className="font-inter text-[10px] leading-snug text-[#64748B] mt-0.5">
+                *Tentative estimate. Subject to change; final price confirmed after free site survey.
+              </div>
+            </>
+          ) : (
+            <div className="font-inter text-xs font-medium italic text-[#475569] py-1">Contact for latest price</div>
+          )}
         </div>
         <a
           href={`https://wa.me/923250200632?text=${whatsappMsg}`}
@@ -176,6 +317,13 @@ export default function PackagesSection() {
           >
             Learn More About Installments <ArrowRight className="w-4 h-4" />
           </Link>
+        </div>
+
+        {/* Pricing disclaimer banner */}
+        <div className="mb-8 rounded-xl bg-[#0A1F44] px-4 sm:px-6 py-3 text-center">
+          <span className="font-inter text-xs sm:text-sm text-white leading-relaxed">
+            <span className="text-[#D4AF37] font-jakarta font-bold">*</span> All prices shown are tentative estimates and subject to change without notice. Final pricing confirmed at time of site survey and quote.
+          </span>
         </div>
 
         {loading ? (
