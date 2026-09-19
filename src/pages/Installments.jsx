@@ -6,6 +6,14 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/layout/WhatsAppButton';
 import { defaultPackages } from '@/lib/package-data';
+import {
+  getBatteryOptions,
+  getInverterSpecs,
+  normalizeTier,
+  getEstimatedPrice,
+  isBatteryEnabled,
+  calculateInstallment,
+} from '@/lib/package-pricing';
 import { trackWhatsAppClick } from '@/lib/analytics';
 import { Loader2, Sun, MessageCircle, CreditCard, CalendarClock, BadgeCheck, ArrowRight, Shield, Wallet } from 'lucide-react';
 
@@ -188,10 +196,51 @@ export default function Installments() {
 }
 
 function InstallmentCard({ pkg }) {
+  const batteryOptions = getBatteryOptions(pkg);
+  const inverterSpecs = getInverterSpecs(pkg);
+  const multiBattery = batteryOptions.length > 1;
+  const multiInverter = inverterSpecs.length > 1;
+
+  const tier = normalizeTier(pkg.systemSize);
+  const isCustom = !tier || pkg.systemSize === 'Custom';
+
+  const [inverterIndex, setInverterIndex] = useState(0);
+  const inverterKey = inverterSpecs[inverterIndex] ? inverterSpecs[inverterIndex].key : null;
+
+  const enabledBatteries = batteryOptions.filter(o => isBatteryEnabled(tier, inverterKey, o));
+  const [battery, setBattery] = useState(enabledBatteries[0] || null);
+
+  const handleInverterChange = (i) => {
+    setInverterIndex(i);
+    const newInvKey = inverterSpecs[i]?.key;
+    if (tier && !isBatteryEnabled(tier, newInvKey, battery)) {
+      const nextBattery = batteryOptions.find(o => isBatteryEnabled(tier, newInvKey, o));
+      if (nextBattery) setBattery(nextBattery);
+    }
+  };
+
+  const liveTotal = getEstimatedPrice(tier, inverterKey, battery);
+
   const [term, setTerm] = useState(12);
+  const planYears = term === 24 ? 2 : 1;
+  const installment = (!isCustom && liveTotal !== null)
+    ? calculateInstallment(liveTotal, planYears)
+    : null;
+
+  const batteryDetail = battery ? ` with a ${battery} lithium battery` : '';
+  const installmentDetail = installment
+    ? ` on a ${term === 24 ? '2-Year' : '1-Year'} installment plan (Rs. ${installment.downPayment.toLocaleString()} down, Rs. ${installment.monthlyInstallment.toLocaleString()}/month)`
+    : '';
   const whatsappMsg = encodeURIComponent(
-    `Assalam-o-Alaikum, I'm interested in the ${pkg.name} (${pkg.systemSize}) solar package with a 20% downpayment on a ${term}-month installment plan. Please share the monthly installment amount.`
+    `Assalam-o-Alaikum, I'm interested in the ${pkg.name} (${pkg.systemSize}) solar package${batteryDetail}${installmentDetail}. Please share more details.`
   );
+
+  const componentFilter = c =>
+    typeof c !== 'string' ||
+    !(
+      (multiInverter && c.includes('Inverter')) ||
+      (multiBattery && c.includes('Lithium Battery'))
+    );
 
   return (
     <div className={`relative group bg-white rounded-2xl border-2 p-6 card-hover flex flex-col ${
@@ -237,8 +286,8 @@ function InstallmentCard({ pkg }) {
         <div className="font-jakarta font-bold text-sm text-[#D97706]">{pkg.monthlyUnits}</div>
       </div>
 
-      <ul className="space-y-2 mb-6 flex-1">
-        {pkg.components.map((c, i) => (
+      <ul className="space-y-2 mb-4 flex-1">
+        {pkg.components.filter(componentFilter).map((c, i) => (
           <li key={i} className="flex items-center gap-2 text-sm font-inter text-[#475569]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A5F] flex-shrink-0" />
             {c}
@@ -246,31 +295,120 @@ function InstallmentCard({ pkg }) {
         ))}
       </ul>
 
-      {/* Installment term selector */}
-      <div className="mb-4">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="font-inter text-xs text-[#475569]">Installment Plan</span>
+      {multiInverter && (
+        <div className="mb-4">
+          <div className="text-xs font-inter font-semibold text-[#475569] uppercase tracking-wider mb-2">Inverter</div>
+          <div className="flex flex-wrap gap-1.5">
+            {inverterSpecs.map((spec, i) => (
+              <button
+                key={spec.key}
+                type="button"
+                onClick={() => handleInverterChange(i)}
+                className={`px-3 py-1.5 rounded-full text-xs font-jakarta font-semibold border transition-all duration-300 ${
+                  inverterIndex === i
+                    ? 'bg-[#D97706] border-[#D97706] text-white shadow-md shadow-[#D97706]/25'
+                    : 'bg-[#F8FAFC] border-[#E2E8F0] text-[#475569] hover:border-[#D97706]/50 hover:text-[#1E3A5F]'
+                }`}
+              >
+                {spec.label}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {termOptions.map(t => (
-            <button
-              key={t.months}
-              onClick={() => setTerm(t.months)}
-              className={`py-2 rounded-lg border text-xs font-inter font-semibold transition-all duration-200 ${
-                term === t.months
-                  ? 'border-[#1E3A5F] bg-[#1E3A5F] text-white'
-                  : 'border-[#E2E8F0] bg-white text-[#475569] hover:border-[#1E3A5F]/40'
-              }`}
-            >
-              {t.label}
-            </button>
-          ))}
+      )}
+
+      {multiBattery && (
+        <div className="mb-4">
+          <div className="text-xs font-inter font-semibold text-[#475569] uppercase tracking-wider mb-2">Battery Size</div>
+          <div className="flex flex-wrap gap-1.5">
+            {batteryOptions.map(opt => {
+              const hasPrice = isBatteryEnabled(tier, inverterKey, opt);
+              return hasPrice ? (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => setBattery(opt)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-jakarta font-semibold border transition-all duration-300 ${
+                    battery === opt
+                      ? 'bg-[#D97706] border-[#D97706] text-white shadow-md shadow-[#D97706]/25'
+                      : 'bg-[#F8FAFC] border-[#E2E8F0] text-[#475569] hover:border-[#D97706]/50 hover:text-[#1E3A5F]'
+                  }`}
+                >
+                  {opt}
+                </button>
+              ) : (
+                <span
+                  key={opt}
+                  title="Price pending — contact us"
+                  className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-jakarta font-semibold border bg-[#F1F5F9] border-[#E2E8F0] text-[#94A3B8] opacity-60 cursor-not-allowed select-none"
+                >
+                  {opt}
+                </span>
+              );
+            })}
+          </div>
         </div>
+      )}
+
+      {/* Main price display */}
+      <div className="w-full py-2.5 px-3 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] mb-4">
+        <div className="font-jakarta font-bold text-[10px] sm:text-[11px] uppercase tracking-wider text-[#0A1F44] mb-0.5">
+          Estimated Total System Price
+        </div>
+        {liveTotal !== null ? (
+          <>
+            <div className="font-jakarta font-extrabold text-xl text-[#D4AF37]">Rs. {liveTotal.toLocaleString()}*</div>
+            <div className="font-inter text-[10px] leading-snug text-[#64748B] mt-0.5">
+              *Tentative estimate. Subject to change; final price confirmed after free site survey.
+            </div>
+          </>
+        ) : (
+          <div className="font-inter text-xs font-medium italic text-[#475569] py-1">Contact for latest price</div>
+        )}
       </div>
 
-      <div className="mb-4 text-center text-[11px] font-inter text-[#94A3B8]">
-        20% downpayment on {pkg.systemSize} — pay the rest monthly
-      </div>
+      {/* Installment term selector (hidden for custom card) */}
+      {!isCustom && liveTotal !== null && (
+        <div className="mb-4">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="font-inter text-xs text-[#475569]">Installment Plan</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {termOptions.map(t => (
+              <button
+                key={t.months}
+                type="button"
+                onClick={() => setTerm(t.months)}
+                className={`py-2 rounded-lg border text-xs font-inter font-semibold transition-all duration-200 ${
+                  term === t.months
+                    ? 'border-[#1E3A5F] bg-[#1E3A5F] text-white'
+                    : 'border-[#E2E8F0] bg-white text-[#475569] hover:border-[#1E3A5F]/40'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Installment summary */}
+      {installment ? (
+        <div className="installment-summary mb-4 p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-center">
+          <span className="installment-line block font-jakarta font-bold text-xs sm:text-sm text-[#0A1F44]">
+            Rs. {installment.downPayment.toLocaleString()} down — then Rs. {installment.monthlyInstallment.toLocaleString()}/month
+          </span>
+          <span className="installment-disclaimer block font-inter text-[10px] leading-snug text-[#64748B] mt-1">
+            *Based on tentative estimated system price. Subject to change; final plan confirmed after site survey.
+          </span>
+        </div>
+      ) : (
+        <div className="installment-summary mb-4 p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-center">
+          <span className="installment-line block font-jakarta font-bold text-xs sm:text-sm text-[#0A1F44]">
+            Contact for Custom Installment Plan
+          </span>
+        </div>
+      )}
 
       <a
         href={`https://wa.me/923250200632?text=${whatsappMsg}`}
