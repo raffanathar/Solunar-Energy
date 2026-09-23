@@ -29,6 +29,9 @@ export const COMPONENT_PRICES = {
 // Exact client-confirmed totals for 3kW, 6kW, 8kW. NO earthing, NO mounting on
 // these tiers. Lookup key = "{inverterKey}|{batteryKey}".
 export const FIXED_TIER_TOTALS = {
+  '3kW_basic': {
+    '4kW|none': 291960,
+  },
   '3kW': {
     '4kW|5kW': 499000,
   },
@@ -88,18 +91,21 @@ export function getInverterSpecs(pkg) {
   return [{ key: size, label: null }];
 }
 
-export function normalizeTier(systemSize) {
+export function normalizeTier(systemSize, pkgName) {
   if (!systemSize) return null;
+  if (pkgName === '3kW Basic') return '3kW_basic';
   const m = String(systemSize).replace(/\s+/g, '').match(/(\d+)/);
   return m ? `${m[1]}kW` : null;
 }
 
 export function getEstimatedPrice(tier, selectedInverterKey, selectedBatteryKey) {
-  if (!tier || !selectedInverterKey || !selectedBatteryKey) return null;
+  if (!tier || !selectedInverterKey) return null;
+  const batKey = selectedBatteryKey || 'none';
   if (FIXED_TIER_TOTALS[tier]) {
-    const key = `${selectedInverterKey}|${selectedBatteryKey}`;
+    const key = `${selectedInverterKey}|${batKey}`;
     return FIXED_TIER_TOTALS[tier][key] ?? null;
   }
+  if (!selectedBatteryKey) return null;
   const base = BASE_SYSTEM_COST[tier];
   const inv = COMPONENT_PRICES.inverters[selectedInverterKey];
   const bat = COMPONENT_PRICES.batteries[selectedBatteryKey];

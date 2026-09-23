@@ -4,7 +4,7 @@ export const defaultPackages = [
   {
     id: 'p0', name: '3kW Basic', systemSize: '3kW', bestFor: 'Very Small Homes & Single Rooms',
     monthlyUnits: 'Based on load analysis', coveragePercent: null,
-    components: ['4 × 720W N-type Bifacial Panels', '4kW Hybrid/On-grid/Off-grid Inverter', 'Net-billing Support'],
+    components: ['4 × 720W N-type Bifacial Panels', '4kW Hybrid/On-grid/Off-grid Inverter'],
   },
   {
     id: 'p1', name: '3kW Home Starter', systemSize: '3 kW', bestFor: 'Small Homes & Apartments',

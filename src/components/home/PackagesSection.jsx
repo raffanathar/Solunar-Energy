@@ -20,7 +20,7 @@ function PackageCard({ pkg }) {
   const multiBattery = batteryOptions.length > 1;
   const multiInverter = inverterSpecs.length > 1;
 
-  const tier = normalizeTier(pkg.systemSize);
+  const tier = normalizeTier(pkg.systemSize, pkg.name);
   const [inverterIndex, setInverterIndex] = useState(0);
   const inverterKey = inverterSpecs[inverterIndex] ? inverterSpecs[inverterIndex].key : null;
 
