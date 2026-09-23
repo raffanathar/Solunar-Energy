@@ -235,12 +235,14 @@ function InstallmentCard({ pkg }) {
     `Assalam-o-Alaikum, I'm interested in the ${pkg.name} (${pkg.systemSize}) solar package${batteryDetail}${installmentDetail}. Please share more details.`
   );
 
-  const componentFilter = c =>
-    typeof c !== 'string' ||
-    !(
+  const componentFilter = c => {
+    if (typeof c !== 'string') return false;
+    if (pkg.name === '3kW Basic' && c.includes('Net-billing Support')) return false;
+    return !(
       (multiInverter && c.includes('Inverter')) ||
       (multiBattery && c.includes('Lithium Battery'))
     );
+  };
 
   return (
     <div className={`relative group bg-white rounded-2xl border-2 p-6 card-hover flex flex-col ${

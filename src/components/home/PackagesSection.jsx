@@ -32,12 +32,14 @@ function PackageCard({ pkg }) {
   const batteryDetail = battery ? ` with a ${battery} lithium battery` : '';
   const whatsappMsg = encodeURIComponent(`Hi! I'm interested in the ${pkg.name} (${pkg.systemSize}) solar package${batteryDetail}. Please share the latest price.`);
 
-  const componentFilter = c =>
-    typeof c !== 'string' ||
-    !(
+  const componentFilter = c => {
+    if (typeof c !== 'string') return false;
+    if (pkg.name === '3kW Basic' && c.includes('Net-billing Support')) return false;
+    return !(
       (multiInverter && c.includes('Inverter')) ||
       (multiBattery && c.includes('Lithium Battery'))
     );
+  };
 
   return (
     <div className={`relative group bg-white rounded-2xl border-2 p-6 card-hover flex flex-col ${
